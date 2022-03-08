@@ -1,4 +1,36 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css' html, body;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 5px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: var(--bkg-color);
+  color: var(--font-color)
+}
+
+body.dark-theme {
+  --bkg-color: #808080;
+  --font-color: #FFFFFF;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.float-container {
+  margin-top: 10px;
+}
+
+.float-child-left {
+  width: 49%;
+  float: left;
+  margin-right: 1px;
+  margin-left: 5px;
+}
+
+.float-child-right {
+  width: 49%;
+  float: right;
+  margin-right: 5px;
+  margin-left: 1px;
+}
+
