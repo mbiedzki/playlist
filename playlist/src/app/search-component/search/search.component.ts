@@ -33,7 +33,7 @@ export class SearchComponent {
         this.loading = false;
         if (res?.data?.length) {
           this.items = [...this.items, ...this.decodeItems(res.data)];
-          console.log('received and decoded items', this.items, this.items.length, this.index);
+          console.log('received and decoded items', res.data, this.items, this.items.length, this.index);
           this.index++;
         } else {
           this._snackBar.openSnackBar('Please try again in few seconds, this is due to free access to deezer...');
@@ -50,8 +50,8 @@ export class SearchComponent {
   decodeItems(items: Array<any>) {
     const decodedItems: Array<PlayListItem> = [];
     items.forEach((item: any) => {
-      let newItem: PlayListItem = {title: '', artist: '', picture: '', id: ''};
-      newItem.title = item?.id || 'no id';
+      let newItem: PlayListItem = {title: '', artist: '', picture: '', id: 0};
+      newItem.id = item?.id || 0;
       newItem.title = item?.title || 'no title';
       newItem.artist = item?.artist?.name || 'no artist name';
       newItem.picture = item?.album?.cover_small || '';

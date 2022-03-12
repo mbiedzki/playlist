@@ -10,7 +10,7 @@
   <img matListAvatar src="{{item.picture}}" alt="no image" class="my-image">
   <div matLine>{{item.title}}</div>
   <div matLine>{{item.artist}}</div>
-  <button matSuffix aria-label="Delete" mat-button color="primary" (click)="deleteItem($event)" class="my-button">
+  <button matSuffix aria-label="Delete" mat-button color="primary" (click)="deleteItem(item)" class="my-button">
     <mat-icon>clear</mat-icon>
   </button>
 </mat-list-item>

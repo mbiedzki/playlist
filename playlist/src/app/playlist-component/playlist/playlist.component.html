@@ -4,7 +4,7 @@
 <app-item-list [items]="items" [type]="'playlist'"></app-item-list>
 <mat-divider></mat-divider>
 <div>
-  <button *ngIf="items?.length === 5" matSuffix aria-label="Save" mat-button color="primary" mat-raised-button
+  <button *ngIf="items?.length" matSuffix aria-label="Save" mat-button color="primary" mat-raised-button
           class="my-button"
           (click)="saveList()">
     Save playlist

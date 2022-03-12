@@ -1,12 +1,13 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { playlistItems } from '../../playlist-component/playlist/playlist.component';
 import { MySnackBarComponent } from '../my-snack-bar/my-snack-bar.component';
+import { J } from '@angular/cdk/keycodes';
 
 export interface PlayListItem {
   title: string;
   artist: string;
   picture: string;
-  id: string;
+  id: number;
 }
 
 @Component({
@@ -16,7 +17,7 @@ export interface PlayListItem {
 })
 
 export class ItemComponent implements OnInit {
-  @Input() item: PlayListItem = { title: '', artist: '', picture: '', id: '' };
+  @Input() item: PlayListItem = { title: '', artist: '', picture: '', id: 0 };
   @Input() type: string = 'searchList' || 'playlist';
   playlistItems: Array<PlayListItem> = playlistItems;
 
@@ -28,16 +29,23 @@ export class ItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addToPlaylist($event: any) {
+  addToPlaylist(item: any) {
     if (this.playlistItems?.length < 5) {
-      this.playlistItems.push($event);
+      const found: PlayListItem | undefined = this.playlistItems.find((it: PlayListItem) => it.id === item.id);
+      if(found) {
+        this._snackBar.openSnackBar('Item already in playlist');
+      } else {
+        this.playlistItems.push(item);
+      }
     } else {
       this._snackBar.openSnackBar('Maximum 5 items allowed in playlist');
     }
   }
 
-  deleteItem($event: any) {
-    this.playlistItems = this.playlistItems.filter((item: PlayListItem) => item.id !== $event.id);
+  deleteItem(item: any) {
+    console.log('ABC delete', item)
+    const index: number = this.playlistItems.findIndex((it: PlayListItem) => it.id === item.id);
+    if(index > -1) this.playlistItems.splice(index, 1);
 
   }
 
