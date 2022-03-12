@@ -1,6 +1,5 @@
-.mat-grid-list {
+.mat-action-list {
   flex-grow: 1;
   overflow: auto;
-  max-height: 500px;
   border: solid grey;
 }

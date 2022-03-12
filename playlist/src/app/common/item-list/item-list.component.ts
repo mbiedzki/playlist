@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PlayListItem } from '../item/item.component';
 
 @Component({
@@ -7,8 +7,9 @@ import { PlayListItem } from '../item/item.component';
   styleUrls: ['./item-list.component.css']
 })
 export class ItemListComponent implements OnInit {
-  public items: Array<PlayListItem> = []
-  color: string = '#DDBDF1'
+  @Input() items: Array<PlayListItem> = []
+  @Input() type: string = 'searchList' || 'playlist';
+  @Output() itemEmmiter = new EventEmitter<PlayListItem>()
 
   constructor() { }
 

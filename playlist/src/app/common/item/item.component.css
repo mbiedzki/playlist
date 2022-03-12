@@ -1,29 +1,6 @@
-.my-image {
-  height: 80%;
-  margin-top: 5px;
+.my-button {
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: auto;
+  display: block;
 }
-
-.float-container {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.float-child-left {
-  width: 20%;
-  margin-right: 5px;
-  overflow: hidden;
-}
-
-.float-child-right {
-  width: 80%;
-  text-align: left;
-  overflow: hidden;
-
-}
-
-.playlist-button {
-  height: 100%;
-  width: 100%;
-}
-

@@ -1,14 +1,17 @@
-<mat-list-item class="dark-theme">
-<mat-divider></mat-divider>
-<button class="playlist-button dark-theme" mat-list-item (click)="addToPlaylist('Item')">
-    <div class="float-container dark-theme">
-      <div id="leftContainer" class="float-child-left">
-        <img matListAvatar src="favicon.ico" alt="no image" class="my-image">
-      </div>
-      <div id="rightContainer" class="float-child-right dark-theme">
-        <div matLine>Set fire to rain</div>
-        <div matLine>Adele</div>
-      </div>
-      </div>
+<mat-list-item *ngIf="type === 'searchList'" (click)="addToPlaylist(item)" class="my-item">
+  <mat-divider></mat-divider>
+<img matListAvatar src="{{item.picture}}" alt="no image" class="my-image">
+<div matLine>{{item.title}}</div>
+<div matLine>{{item.artist}}</div>
+</mat-list-item>
+
+<mat-list-item *ngIf="type === 'playlist'" class="my-item">
+  <mat-divider></mat-divider>
+  <img matListAvatar src="{{item.picture}}" alt="no image" class="my-image">
+  <div matLine>{{item.title}}</div>
+  <div matLine>{{item.artist}}</div>
+  <button matSuffix aria-label="Delete" mat-button color="primary" (click)="deleteItem($event)" class="my-button">
+    <mat-icon>clear</mat-icon>
   </button>
 </mat-list-item>
+

@@ -1,3 +1,13 @@
 <mat-toolbar color="primary" class="mat-elevation-z8">
   Your playlist
 </mat-toolbar>
+<app-item-list [items]="items" [type]="'playlist'"></app-item-list>
+<mat-divider></mat-divider>
+<div>
+  <button *ngIf="items?.length === 5" matSuffix aria-label="Save" mat-button color="primary" mat-raised-button
+          class="my-button"
+          (click)="saveList()">
+    Save playlist
+    <mat-icon>save_alt</mat-icon>
+  </button>
+</div>

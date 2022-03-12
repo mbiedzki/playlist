@@ -1,19 +1,11 @@
-<mat-grid-list class="dark-theme" cols="1" rowHeight="500px">
-  <app-item></app-item>
-  <app-item></app-item>
-  <app-item></app-item>
-  <app-item></app-item>
-  <app-item></app-item>
-  <app-item></app-item>
-  <app-item></app-item>
-  <app-item></app-item>
-  <app-item></app-item>
-  <app-item></app-item>
-  <app-item></app-item>
-  <app-item></app-item>
-  <app-item></app-item>
-  <app-item></app-item>
-  <app-item></app-item>
-  <app-item></app-item>
-  <app-item></app-item>
-</mat-grid-list>
+<div *ngIf="type === 'searchList'">
+<mat-action-list class="dark-theme" cols="1" *ngFor="let item of items" rowHeight="100px">
+ <app-item [item]="item" [type]="type"></app-item>
+</mat-action-list>
+</div>
+
+<div *ngIf="type === 'playlist'">
+<mat-list class="dark-theme" cols="1" *ngFor="let item of items" rowHeight="100px">
+  <app-item [item]="item" [type]="type"></app-item>
+</mat-list>
+</div>

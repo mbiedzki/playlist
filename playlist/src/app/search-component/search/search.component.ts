@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FetchService } from '../../services/fetch.service';
 import { MySnackBarComponent } from '../../common/my-snack-bar/my-snack-bar.component';
 import { PlayListItem } from '../../common/item/item.component';
-import { A } from '@angular/cdk/keycodes';
 
 
 @Component({
@@ -34,7 +33,7 @@ export class SearchComponent {
         this.loading = false;
         if (res?.data?.length) {
           this.items = [...this.items, ...this.decodeItems(res.data)];
-          console.log('received items', this.items, this.items.length, this.index);
+          console.log('received and decoded items', this.items, this.items.length, this.index);
           this.index++;
         } else {
           this._snackBar.openSnackBar('Please try again in few seconds, this is due to free access to deezer...');
@@ -51,7 +50,8 @@ export class SearchComponent {
   decodeItems(items: Array<any>) {
     const decodedItems: Array<PlayListItem> = [];
     items.forEach((item: any) => {
-      let newItem: PlayListItem = {title: '', artist: '', picture: ''};
+      let newItem: PlayListItem = {title: '', artist: '', picture: '', id: ''};
+      newItem.title = item?.id || 'no id';
       newItem.title = item?.title || 'no title';
       newItem.artist = item?.artist?.name || 'no artist name';
       newItem.picture = item?.album?.cover_small || '';

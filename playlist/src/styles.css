@@ -25,14 +25,17 @@ body.dark-theme {
   margin-top: 5px;
   display: flex;
   justify-content: space-between;
-  overflow: auto;
-
+  overflow: hidden;
+  max-height: 1000px;
+  min-height: 700px;
+  border: solid lightgray;
 }
 
 .float-child-left {
   overflow: auto;
   width: 50%;
   margin-right: 5px;
+  margin-bottom: 10px;
 }
 
 .float-child-right {

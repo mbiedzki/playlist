@@ -3,5 +3,5 @@
 </mat-toolbar>
 <app-search-field (valueEmitter)="loadItems($event)"></app-search-field>
 <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
-<app-item-list></app-item-list>
+<app-item-list [items]="items" [type]="'searchList'"></app-item-list>
 <app-more-button *ngIf="items?.length" (loadMoreEmitter)="loadMoreItems()"></app-more-button>
