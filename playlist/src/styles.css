@@ -26,8 +26,6 @@ body.dark-theme {
   display: flex;
   justify-content: space-between;
   overflow: hidden;
-  max-height: 1000px;
-  min-height: 700px;
   border: solid lightgray;
 }
 
@@ -43,6 +41,7 @@ body.dark-theme {
   width: 50%;
   margin-left: 5px;
   margin-bottom: 10px;
+  height: calc(100vh - 100px);
 }
 
 .my-snack-bar {

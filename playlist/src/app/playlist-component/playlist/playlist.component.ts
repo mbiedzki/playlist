@@ -1,5 +1,6 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { PlayListItem } from '../../common/item/item.component';
+import { MySnackBarComponent } from '../../common/my-snack-bar/my-snack-bar.component';
 
 export const playlistItems: Array<PlayListItem> = [];
 
@@ -12,13 +13,17 @@ export const playlistItems: Array<PlayListItem> = [];
 export class PlaylistComponent implements OnInit {
   items: Array<PlayListItem> = playlistItems;
 
-  constructor() {}
+  constructor(
+    private _snackBar: MySnackBarComponent
+  ) {}
 
   ngOnInit(): void {
   }
 
   saveList() {
     console.log('ABC save', this.items)
+    localStorage.setItem("playlist", JSON.stringify(this.items));
+    this._snackBar.openSnackBar('Playlist saved')
   }
 
 }
