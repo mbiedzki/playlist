@@ -25,9 +25,10 @@ export class SearchComponent {
   async loadItems($event: string) {
     if (this.searchString !== $event) {
       this.searchString = $event;
+      this.items = []
       this.index = 0;
     }
-    if (this.searchString.length >= 5) {
+    if (this.searchString.length >= 3) {
       this.loading = true;
       this.fetchService.getItems(this.searchString, this.index).subscribe((res: any) => {
         this.loading = false;
