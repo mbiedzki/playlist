@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FetchService } from '../../services/fetch.service';
 
 @Component({
@@ -7,26 +7,9 @@ import { FetchService } from '../../services/fetch.service';
   styleUrls: ['./search-field.component.css']
 })
 export class SearchFieldComponent {
-  public value: string = '';
-  public foundItems: Array<any> = [];
-  public loading: boolean = false;
-  private index: number = 0;
+  value: string = '';
+  @Output() valueEmitter = new EventEmitter<string>();
 
-  async change(newValue: string) {
-    if (this.value.length >= 5) {
-      this.loading = true;
-      this.fetchService.getItems('Adele', this.index).subscribe((res: any) => {
-        this.loading = false;
-        this.foundItems = res?.data;
-        this.index++;
-        console.log('foundItems:', this.foundItems);
-      });
-    }
+  constructor() {
   }
-
-  constructor(
-    private fetchService: FetchService
-  ) {
-  }
-
 }

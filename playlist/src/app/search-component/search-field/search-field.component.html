@@ -1,9 +1,8 @@
-  <mat-form-field class="full-width" appearance="fill">
-    <mat-label>Artist, title, etc. - min. 5 letters.</mat-label>
-    <input matInput type="text" [(ngModel)]="value" (ngModelChange)="change($event)" id="searchField">
-    <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
-  <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<mat-form-field class="full-width" appearance="fill">
+  <mat-label>Artist, album, title, etc. - min. 5 letters.</mat-label>
+  <input matInput type="text" [(ngModel)]="value" (ngModelChange)="valueEmitter.emit($event)" id="searchField">
+  <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
 

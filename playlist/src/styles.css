@@ -12,25 +12,51 @@ body.dark-theme {
   --font-color: #FFFFFF;
 }
 
+.dark-theme {
+  --bkg-color: #808080;
+  --font-color: #FFFFFF;
+}
+
 .spacer {
   flex: 1 1 auto;
 }
 
 .float-container {
-  margin-top: 10px;
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  overflow: auto;
+
 }
 
 .float-child-left {
-  width: 49%;
-  float: left;
-  margin-right: 1px;
-  margin-left: 5px;
+  overflow: auto;
+  width: 50%;
+  margin-right: 5px;
 }
 
 .float-child-right {
-  width: 49%;
-  float: right;
-  margin-right: 5px;
-  margin-left: 1px;
+  overflow: visible;
+  width: 50%;
+  margin-left: 5px;
+  margin-bottom: 10px;
+}
+
+.my-snack-bar {
+  background-color: #3F51B5;
+}
+
+.mat-snack-bar-container {
+  text-align: center;
+}
+
+.mat-simple-snackbar {
+  display: inline-block !important;
+}
+
+.my-card {
+  width: 100%;
+  --bkg-color: #808080;
+  --font-color: #FFFFFF;
 }
 

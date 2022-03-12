@@ -1,4 +1,7 @@
 <mat-toolbar color="primary" class="mat-elevation-z8">
   Search
 </mat-toolbar>
-<app-search-field></app-search-field>
+<app-search-field (valueEmitter)="loadItems($event)"></app-search-field>
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<app-item-list></app-item-list>
+<app-more-button *ngIf="items?.length" (loadMoreEmitter)="loadMoreItems()"></app-more-button>

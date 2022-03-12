@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PlayListItem } from '../item/item.component';
 
 @Component({
   selector: 'app-item-list',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./item-list.component.css']
 })
 export class ItemListComponent implements OnInit {
+  public items: Array<PlayListItem> = []
+  color: string = '#DDBDF1'
 
   constructor() { }
 
   ngOnInit(): void {
   }
+
+
 
 }

@@ -1,15 +1,62 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FetchService } from '../../services/fetch.service';
+import { MySnackBarComponent } from '../../common/my-snack-bar/my-snack-bar.component';
+import { PlayListItem } from '../../common/item/item.component';
+import { A } from '@angular/cdk/keycodes';
+
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
+  items: Array<PlayListItem> = [];
+  loading: boolean = false;
+  index: number = 0;
+  searchString: string = '';
 
-  constructor() { }
 
-  ngOnInit(): void {
+  constructor(
+    private fetchService: FetchService,
+    private _snackBar: MySnackBarComponent,
+  ) {
   }
 
+  async loadItems($event: string) {
+    if (this.searchString !== $event) {
+      this.searchString = $event;
+      this.index = 0;
+    }
+    if (this.searchString.length >= 5) {
+      this.loading = true;
+      this.fetchService.getItems(this.searchString, this.index).subscribe((res: any) => {
+        this.loading = false;
+        if (res?.data?.length) {
+          this.items = [...this.items, ...this.decodeItems(res.data)];
+          console.log('received items', this.items, this.items.length, this.index);
+          this.index++;
+        } else {
+          this._snackBar.openSnackBar('Please try again in few seconds, this is due to free access to deezer...');
+        }
+      });
+    }
+  }
+
+  loadMoreItems() {
+    this.loadItems(this.searchString);
+    console.log('load more items');
+  }
+
+  decodeItems(items: Array<any>) {
+    const decodedItems: Array<PlayListItem> = [];
+    items.forEach((item: any) => {
+      let newItem: PlayListItem = {title: '', artist: '', picture: ''};
+      newItem.title = item?.title || 'no title';
+      newItem.artist = item?.artist?.name || 'no artist name';
+      newItem.picture = item?.album?.cover_small || '';
+      if(newItem) decodedItems.push(newItem)
+    });
+    return decodedItems;
+  }
 }
