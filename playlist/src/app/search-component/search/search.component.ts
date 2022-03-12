@@ -33,7 +33,7 @@ export class SearchComponent {
         this.loading = false;
         if (res?.data?.length) {
           this.items = [...this.items, ...this.decodeItems(res.data)];
-          console.log('received and decoded items', res.data, this.items, this.items.length, this.index);
+          console.log('received and decoded items', this.items.length);
           this.index++;
         } else {
           this._snackBar.openSnackBar('Please try again in few seconds, this is due to free access to deezer...');

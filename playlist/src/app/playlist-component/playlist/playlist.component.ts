@@ -2,7 +2,7 @@ import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { PlayListItem } from '../../common/item/item.component';
 import { MySnackBarComponent } from '../../common/my-snack-bar/my-snack-bar.component';
 
-export const playlistItems: Array<PlayListItem> = [];
+export let playlistItems: Array<PlayListItem> = [];
 
 @Component({
   selector: 'app-playlist',
