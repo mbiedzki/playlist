@@ -1,19 +1,17 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row>
     <h1>Simple playlist</h1>
     <span class="spacer"></span>
     <button mat-icon-button matTooltip="switch between light and dark mode">
       <mat-icon (click)="toggleDarkTheme()">brightness_medium</mat-icon>
     </button>
-  </mat-toolbar-row>
 </mat-toolbar>
 
 <div class="float-container">
   <div class="float-child-left mat-elevation-z8">
-    Lista
+    <app-playlist></app-playlist>
   </div>
   <div class="float-child-right mat-elevation-z8">
-    Search
+    <app-search></app-search>
   </div>
 </div>
 
