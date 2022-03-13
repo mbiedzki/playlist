@@ -1,15 +1,25 @@
+<!-- component layout for search list-->
 <mat-list-item *ngIf="type === 'searchList'" (click)="addToPlaylist(item)" class="my-item">
   <mat-divider></mat-divider>
 <img matListAvatar src="{{item.picture}}" alt="no image" class="my-image">
 <div matLine>{{item.title}}</div>
 <div matLine>{{item.artist}}</div>
+  <audio controls class="dark-theme">
+    <source src="{{item.preview}}" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 </mat-list-item>
 
+<!-- component layout for play list-->
 <mat-list-item *ngIf="type === 'playlist'" class="my-item">
   <mat-divider></mat-divider>
   <img matListAvatar src="{{item.picture}}" alt="no image" class="my-image">
   <div matLine>{{item.title}}</div>
   <div matLine>{{item.artist}}</div>
+  <audio controls class="dark-theme">
+    <source src="{{item.preview}}" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
   <button matSuffix aria-label="Delete" mat-button color="primary" (click)="deleteItem(item)" class="my-button">
     <mat-icon>clear</mat-icon>
   </button>

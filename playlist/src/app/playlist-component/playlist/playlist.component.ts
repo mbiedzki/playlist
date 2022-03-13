@@ -1,8 +1,7 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PlayListItem } from '../../common/item/item.component';
 import { MySnackBarComponent } from '../../common/my-snack-bar/my-snack-bar.component';
-
-export let playlistItems: Array<PlayListItem> = [];
+import { FetchService } from '../../services/fetch.service';
 
 @Component({
   selector: 'app-playlist',
@@ -11,19 +10,30 @@ export let playlistItems: Array<PlayListItem> = [];
 })
 
 export class PlaylistComponent implements OnInit {
-  items: Array<PlayListItem> = playlistItems;
+  items: Array<PlayListItem> = [];
 
   constructor(
-    private _snackBar: MySnackBarComponent
-  ) {}
+    private _snackBar: MySnackBarComponent,
+    private fetchService: FetchService
+  ) {
+  }
 
   ngOnInit(): void {
+    const storedList: string = localStorage.getItem('playlist') || '';
+    if (storedList?.length) {
+      const storedArray: Array<PlayListItem> = JSON.parse(storedList);
+      // initialization of list in fetch service
+      this.fetchService.initPlayList(storedArray).subscribe((playList: Array<PlayListItem>) => {
+        this.items = playList;
+        console.log('play list initialized', this.items);
+      });
+    }
   }
 
   saveList() {
-    console.log('ABC save', this.items)
-    localStorage.setItem("playlist", JSON.stringify(this.items));
-    this._snackBar.openSnackBar('Playlist saved')
+    console.log('list saved', this.items);
+    localStorage.setItem('playlist', JSON.stringify(this.items));
+    this._snackBar.openSnackBar('Playlist saved');
   }
 
 }

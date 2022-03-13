@@ -7,7 +7,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class MoreButtonComponent implements OnInit {
   @Output() loadMoreEmitter = new EventEmitter<boolean>();
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

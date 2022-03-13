@@ -23,21 +23,23 @@ export class SearchComponent {
   }
 
   async loadItems($event: string) {
+    //if search string changed reset component
     if (this.searchString !== $event) {
       this.searchString = $event;
-      this.items = []
+      this.items = [];
       this.index = 0;
     }
+    //if at least 3 chars start fetching
     if (this.searchString.length >= 3) {
       this.loading = true;
       this.fetchService.getItems(this.searchString, this.index).subscribe((res: any) => {
         this.loading = false;
         if (res?.data?.length) {
           this.items = [...this.items, ...this.decodeItems(res.data)];
-          console.log('received and decoded items', this.items.length);
+          console.log('received and decoded items', {total: this.items.length, received: res.data});
           this.index++;
         } else {
-          this._snackBar.openSnackBar('Please try again in few seconds, this is due to free access to deezer...');
+          this._snackBar.openSnackBar('Please try again in few seconds - limited access to DEEZER API...');
         }
       });
     }
@@ -51,12 +53,13 @@ export class SearchComponent {
   decodeItems(items: Array<any>) {
     const decodedItems: Array<PlayListItem> = [];
     items.forEach((item: any) => {
-      let newItem: PlayListItem = {title: '', artist: '', picture: '', id: 0};
+      let newItem: PlayListItem = { title: '', artist: '', picture: '', id: 0, preview: '' };
       newItem.id = item?.id || 0;
       newItem.title = item?.title || 'no title';
       newItem.artist = item?.artist?.name || 'no artist name';
       newItem.picture = item?.album?.cover_small || '';
-      if(newItem) decodedItems.push(newItem)
+      newItem.preview = item?.preview || '';
+      if (newItem) decodedItems.push(newItem);
     });
     return decodedItems;
   }

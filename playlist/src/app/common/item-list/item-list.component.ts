@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PlayListItem } from '../item/item.component';
 
 @Component({
@@ -7,15 +7,14 @@ import { PlayListItem } from '../item/item.component';
   styleUrls: ['./item-list.component.css']
 })
 export class ItemListComponent implements OnInit {
-  @Input() items: Array<PlayListItem> = []
+  @Input() items: Array<PlayListItem> = [];
   @Input() type: string = 'searchList' || 'playlist';
-  @Output() itemEmmiter = new EventEmitter<PlayListItem>()
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
-
 
 
 }

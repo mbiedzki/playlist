@@ -1,11 +1,13 @@
+<!-- component layout for search list, clickable-->
 <div *ngIf="type === 'searchList'" class="my-list">
-<mat-action-list class="dark-theme" cols="1" *ngFor="let item of items" rowHeight="100px">
+<mat-action-list class="dark-theme" *ngFor="let item of items">
  <app-item [item]="item" [type]="type"></app-item>
 </mat-action-list>
 </div>
 
+<!-- component layout for play list, not clickable-->
 <div *ngIf="type === 'playlist'" class="my-list">
-<mat-list class="dark-theme" cols="1" *ngFor="let item of items" rowHeight="100px">
+<mat-list class="dark-theme" *ngFor="let item of items">
   <app-item [item]="item" [type]="type"></app-item>
 </mat-list>
 </div>

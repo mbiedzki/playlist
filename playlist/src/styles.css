@@ -3,7 +3,7 @@
 body {
   margin: 5px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background: var(--bkg-color);
+  background-color: var(--bkg-color);
   color: var(--font-color)
 }
 
@@ -56,9 +56,5 @@ body.dark-theme {
   display: inline-block !important;
 }
 
-.my-card {
-  width: 100%;
-  --bkg-color: #808080;
-  --font-color: #FFFFFF;
-}
+
 
