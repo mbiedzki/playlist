@@ -20,14 +20,12 @@ export class PlaylistComponent implements OnInit {
 
   ngOnInit(): void {
     const storedList: string = localStorage.getItem('playlist') || '';
-    if (storedList?.length) {
-      const storedArray: Array<PlayListItem> = JSON.parse(storedList);
+      const storedArray: Array<PlayListItem> = storedList?.length ? JSON.parse(storedList) : [];
       // initialization of list in fetch service
       this.fetchService.initPlayList(storedArray).subscribe((playList: Array<PlayListItem>) => {
         this.items = playList;
-        console.log('play list initialized', this.items);
+        console.log('play list initialized', this.items, storedArray);
       });
-    }
   }
 
   saveList() {
