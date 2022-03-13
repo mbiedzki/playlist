@@ -1,5 +1,6 @@
 #Comments to the project (todos)
 
+- repo: https://github.com/mbiedzki/playlist.git
 - dark mode implemented in very simplistic way by toggling on body class, to implement full angular theming it would be
   required to use scss or sass for styling
 - angular generally generates mobile friendly app, but true mobile friendly app would require to use device recognition and styling (e.g. specialized library like https://nativescript.org)
