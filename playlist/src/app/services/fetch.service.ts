@@ -13,9 +13,9 @@ export class FetchService {
     'x-rapidapi-host': 'deezerdevs-deezer.p.rapidapi.com',
     'x-rapidapi-key': '5b8d016c10msh84d7709da21eddcp15589djsn30b9e476996e'
   };
-  playlistItems: Array<PlayListItem> = [];
+  private playlistItems: Array<PlayListItem> = [];
 
-  getItems(queryString: string, index: number = 0): Observable<any> {
+  public getItems(queryString: string, index: number = 0): Observable<any> {
     const url: string = this.url + queryString + '&index=' + index.toString();
     return this.http.get<any>(url, { headers: this.headers, observe: 'body', responseType: 'json' });
   }

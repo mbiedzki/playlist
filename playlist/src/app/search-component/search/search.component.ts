@@ -15,17 +15,16 @@ export class SearchComponent {
   index: number = 0;
   searchString: string = '';
 
-
   constructor(
     private fetchService: FetchService,
     private _snackBar: MySnackBarComponent,
   ) {
   }
 
-  async loadItems($event: string) {
+  async loadItems(search: string) {
     //if search string changed reset component
-    if (this.searchString !== $event) {
-      this.searchString = $event;
+    if (this.searchString !== search) {
+      this.searchString = search;
       this.items = [];
       this.index = 0;
     }
@@ -36,7 +35,7 @@ export class SearchComponent {
         this.loading = false;
         if (res?.data?.length) {
           this.items = [...this.items, ...this.decodeItems(res.data)];
-          console.log('received and decoded items', {total: this.items.length, received: res.data});
+          console.log('received and decoded items', { total: this.items.length, received: res.data });
           this.index++;
         } else {
           this._snackBar.openSnackBar('Please try again in few seconds - limited access to DEEZER API...');
@@ -47,19 +46,20 @@ export class SearchComponent {
 
   loadMoreItems() {
     this.loadItems(this.searchString);
-    console.log('load more items');
+    console.log('load more items', this.searchString, this.index);
   }
 
   decodeItems(items: Array<any>) {
     const decodedItems: Array<PlayListItem> = [];
     items.forEach((item: any) => {
-      let newItem: PlayListItem = { title: '', artist: '', picture: '', id: 0, preview: '' };
-      newItem.id = item?.id || 0;
-      newItem.title = item?.title || 'no title';
-      newItem.artist = item?.artist?.name || 'no artist name';
-      newItem.picture = item?.album?.cover_small || '';
-      newItem.preview = item?.preview || '';
-      if (newItem) decodedItems.push(newItem);
+      let newItem: PlayListItem = {
+        title: item?.title,
+        artist: item?.artist?.name,
+        picture: item?.album?.cover_small,
+        id: item?.id,
+        preview: item?.preview
+      };
+      if (newItem.id && newItem.title && newItem.artist && newItem.picture && newItem.preview) decodedItems.push(newItem);
     });
     return decodedItems;
   }

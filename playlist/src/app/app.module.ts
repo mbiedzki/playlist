@@ -21,7 +21,7 @@ import { SearchComponent } from './search-component/search/search.component';
 import { SearchFieldComponent } from './search-component/search-field/search-field.component';
 import { ItemListComponent } from './common/item-list/item-list.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { ItemComponent, PlayListItem } from './common/item/item.component';
+import { ItemComponent } from './common/item/item.component';
 import { MoreButtonComponent } from './search-component/more-button/more-button.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MySnackBarComponent } from './common/my-snack-bar/my-snack-bar.component';

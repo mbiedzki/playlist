@@ -36,6 +36,7 @@ export class ItemComponent implements OnInit {
 
   addToPlaylist(item: PlayListItem) {
     if (this.playlistItems?.length < 5) {
+      //check if item already exist in playlist
       const found: PlayListItem | undefined = this.playlistItems.find((it: PlayListItem) => it.id === item.id);
       if (found) {
         this._snackBar.openSnackBar('Item already in playlist');
@@ -55,15 +56,6 @@ export class ItemComponent implements OnInit {
     const index: number = this.playlistItems.findIndex((it: PlayListItem) => it.id === item.id);
     if (index > -1) this.playlistItems.splice(index, 1);
     console.log('item deleted: ', item.title);
-  }
-
-  playItem(item: PlayListItem) {
-    if(!item?.preview) {
-      this._snackBar.openSnackBar('No audio source for item');
-    } else {
-      var audio = new Audio(item.preview);
-      audio.play();
-    }
   }
 
 }
