@@ -7,7 +7,7 @@ import { PlayListItem } from '../../common/item/item.component';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
   items: Array<PlayListItem> = [];

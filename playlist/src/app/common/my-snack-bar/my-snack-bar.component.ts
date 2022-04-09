@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-my-snack-bar',
   templateUrl: './my-snack-bar.component.html',
-  styleUrls: ['./my-snack-bar.component.css']
+  styleUrls: ['./my-snack-bar.component.scss']
 })
 export class MySnackBarComponent {
   durationInSeconds = 5;
