@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, ElementRef, HostBinding, Renderer2 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -15,7 +15,7 @@ export class AppComponent {
 
   toggleControl = new FormControl(false);
 
-  constructor(private dialog: MatDialog, private overlay: OverlayContainer) { }
+  constructor(private dialog: MatDialog, private overlay: OverlayContainer, private el: ElementRef, private renderer:Renderer2) { }
 
   ngOnInit(): void {
     this.toggleControl.valueChanges.subscribe((darkMode) => {
@@ -23,8 +23,10 @@ export class AppComponent {
       this.className = darkMode ? darkClassName : '';
       if (darkMode) {
         this.overlay.getContainerElement().classList.add(darkClassName);
+        this.renderer.setStyle(this.el.nativeElement.ownerDocument.body, 'backgroundColor', 'grey');
       } else {
         this.overlay.getContainerElement().classList.remove(darkClassName);
+        this.renderer.setStyle(this.el.nativeElement.ownerDocument.body, 'backgroundColor', 'white');
       }
     });
   }
