@@ -1,18 +1,17 @@
 <mat-toolbar color="primary">
   <h1>Simple playlist</h1>
   <span class="spacer"></span>
-  <button mat-icon-button matTooltip="switch between light and dark mode">
-    <mat-icon (click)="toggleDarkTheme()">brightness_medium</mat-icon>
-  </button>
+  <mat-icon>brightness_5</mat-icon>
+  <mat-slide-toggle [formControl]="toggleControl">
+  </mat-slide-toggle>
+  <mat-icon>bedtime</mat-icon>
 </mat-toolbar>
 
-<div class="float-container">
-  <div class="float-child-left mat-elevation-z8">
+<div class="mat-app-background" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
+  <div fxFlex="50">
     <app-playlist></app-playlist>
   </div>
-  <div class="float-child-right mat-elevation-z8">
+  <div fxFlex="50">
     <app-search></app-search>
   </div>
 </div>
-
-<router-outlet></router-outlet>

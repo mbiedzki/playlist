@@ -1,26 +1,8 @@
-.spacer {
-  flex: 1 1 auto;
-}
-
-.float-container {
-  margin-top: 5px;
+mat-toolbar {
   display: flex;
-  justify-content: space-between;
-  overflow: hidden;
-  border: solid lightgray;
-  height: calc(100vh - 100px);
+  align-items: center;
 }
 
-.float-child-left {
-  overflow: auto;
-  width: 50%;
-  margin-right: 5px;
-  margin-bottom: 10px;
-}
-
-.float-child-right {
-  overflow: visible;
-  width: 50%;
-  margin-left: 5px;
-  margin-bottom: 10px;
+.spacer {
+  flex: 1 0 auto;
 }

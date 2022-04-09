@@ -29,6 +29,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { NgModule } from '@angular/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FlexModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -66,6 +68,8 @@ import { NgModule } from '@angular/core';
     MatSnackBarModule,
     MatListModule,
     MatGridListModule,
+    MatSlideToggleModule,
+    FlexModule,
   ],
   providers: [
     MySnackBarComponent,

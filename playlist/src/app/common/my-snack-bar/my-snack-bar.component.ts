@@ -15,7 +15,7 @@ export class MySnackBarComponent {
   openSnackBar(message: string) {
     this._snackBar.open(message, undefined, {
       duration: this.durationInSeconds * 1000,
-      panelClass: ['my-snack-bar']
+      panelClass: ['mat-toolbar', 'mat-accent']
     });
   }
 }
