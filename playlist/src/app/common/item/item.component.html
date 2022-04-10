@@ -1,5 +1,6 @@
 <!-- component layout for search list-->
-<mat-list-item *ngIf="type === 'searchList'" (click)="addToPlaylist(item)" class="my-item">
+<mat-list-item *ngIf="type === 'searchList'" (click)="addToPlaylist(item)" class="my-item"
+               matTooltip="Click to add to play list: {{item.title}}">
   <mat-divider></mat-divider>
   <img matListAvatar src="{{item.picture}}" alt="no image" class="my-image">
   <div matLine>{{item.title}}</div>

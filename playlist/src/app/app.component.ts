@@ -5,6 +5,8 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { fromEvent, Observable, Subscription } from 'rxjs';
 import { AppRoutingModule } from './app-routing.module';
 import { J } from '@angular/cdk/keycodes';
+import { PlayListItem } from './common/item/item.component';
+import { FetchService } from './services/fetch.service';
 
 @Component({
   selector: 'app-root',
@@ -22,11 +24,21 @@ export class AppComponent {
   public innerWidth: number = 0;
   public mobileMode: boolean = false;
 
-  constructor(private dialog: MatDialog, private overlay: OverlayContainer, private elementref: ElementRef, private renderer: Renderer2, private rootModule: AppRoutingModule) { }
+  constructor(private dialog: MatDialog, private overlay: OverlayContainer, private elementref: ElementRef, private renderer: Renderer2, private rootModule: AppRoutingModule, private fetchService: FetchService) { }
 
   async ngOnInit() {
     this.initMode();
     await this.setWidthListener();
+    await this.initPlaylist()
+  }
+
+  async initPlaylist() {
+    const storedList: string = localStorage.getItem('playlist') || '';
+    const storedArray: Array<PlayListItem> = storedList?.length ? JSON.parse(storedList) : [];
+    // initialization of list in fetch service
+    await this.fetchService.initPlayList(storedArray).subscribe((playList: Array<PlayListItem>) => {
+      console.log('play list initialized', playList);
+    });
   }
 
   //set initial dark mode

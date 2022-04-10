@@ -12,10 +12,10 @@ export class MySnackBarComponent {
   constructor(private _snackBar: MatSnackBar) {
   }
 
-  openSnackBar(message: string) {
+  openSnackBar(message: string, type: string = 'info' || 'warn') {
     this._snackBar.open(message, undefined, {
       duration: this.durationInSeconds * 1000,
-      panelClass: ['mat-toolbar', 'mat-accent']
+      panelClass: type === 'warn' ? ['mat-toolbar', 'mat-warn'] : ['mat-toolbar', 'mat-accent']
     });
   }
 }

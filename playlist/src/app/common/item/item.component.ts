@@ -39,16 +39,17 @@ export class ItemComponent implements OnInit {
       //check if item already exist in playlist
       const found: PlayListItem | undefined = this.playlistItems.find((it: PlayListItem) => it.id === item.id);
       if (found) {
-        this._snackBar.openSnackBar('Item already in playlist');
+        this._snackBar.openSnackBar('Item already in playlist', 'warn');
       } else {
         //update through observable in fetch service
         this.fetchService.updatePlayList(item).subscribe((playList: Array<PlayListItem>) => {
           this.playlistItems = playList;
+          this._snackBar.openSnackBar('Song added to playlist')
           console.log('play list updated: ', item.title, this.playlistItems);
         });
       }
     } else {
-      this._snackBar.openSnackBar('Maximum 5 items allowed in playlist');
+      this._snackBar.openSnackBar('Maximum 5 items allowed in playlist', 'warn');
     }
   }
 
