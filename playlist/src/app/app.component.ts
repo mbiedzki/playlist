@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { fromEvent, Observable, Subscription } from 'rxjs';
 import { AppRoutingModule } from './app-routing.module';
-import { J } from '@angular/cdk/keycodes';
 import { PlayListItem } from './common/item/item.component';
 import { FetchService } from './services/fetch.service';
 
@@ -23,8 +22,10 @@ export class AppComponent {
   resizeSubscription: Subscription = new Subscription();
   public innerWidth: number = 0;
   public mobileMode: boolean = false;
+  public darkMode: boolean = false;
 
-  constructor(private dialog: MatDialog, private overlay: OverlayContainer, private elementref: ElementRef, private renderer: Renderer2, private rootModule: AppRoutingModule, private fetchService: FetchService) { }
+  constructor(private dialog: MatDialog, private overlay: OverlayContainer, private elementref: ElementRef, private renderer: Renderer2,
+              private rootModule: AppRoutingModule, private fetchService: FetchService) { }
 
   async ngOnInit() {
     this.initMode();
@@ -43,9 +44,9 @@ export class AppComponent {
 
   //set initial dark mode
   initMode() {
-    const darkMode: boolean = JSON.parse(localStorage.getItem('darkMode') || 'false');
-    this.setMode(darkMode);
-    this.toggleControl.setValue(darkMode);
+    this.darkMode = JSON.parse(localStorage.getItem('darkMode') || 'false');
+    this.setMode(this.darkMode);
+    this.toggleControl.setValue(this.darkMode);
     this.toggleControl.valueChanges.subscribe((dMode: boolean) => {
       this.setMode(dMode);
     });

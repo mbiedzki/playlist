@@ -14,10 +14,9 @@
   <img matListAvatar src="{{item.picture}}" alt="no image" class="my-image">
   <div matLine>{{item.title}}</div>
   <div matLine>{{item.artist}}</div>
-  <audio controls>
-    <source src="{{item.preview}}" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+  <button matSuffix aria-label="Play" mat-button color="primary" (click)="playItem(item)" class="my-button">
+    <mat-icon>play_arrow</mat-icon>
+  </button>
   <button matSuffix aria-label="Delete" mat-button color="primary" (click)="deleteItem(item)" class="my-button">
     <mat-icon>clear</mat-icon>
   </button>

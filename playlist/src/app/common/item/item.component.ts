@@ -20,10 +20,11 @@ export class ItemComponent implements OnInit {
   @Input() item: PlayListItem = { title: '', artist: '', picture: '', id: 0, preview: '' };
   @Input() type: string = 'searchList' || 'playlist';
   playlistItems: Array<PlayListItem> = [];
+  selectedItem: any;
 
   constructor(
     private _snackBar: MySnackBarComponent,
-    private fetchService: FetchService
+    private fetchService: FetchService,
   ) {
   }
 
@@ -32,6 +33,7 @@ export class ItemComponent implements OnInit {
     this.fetchService.getPlayList().subscribe((playList: Array<PlayListItem>) => {
       this.playlistItems = playList;
     });
+    this.fetchService.sharedSelectedItem.subscribe((item: PlayListItem) => this.selectedItem = item)
   }
 
   addToPlaylist(item: PlayListItem) {
@@ -52,6 +54,11 @@ export class ItemComponent implements OnInit {
       this._snackBar.openSnackBar('Maximum 5 items allowed in playlist', 'warn');
     }
   }
+
+  playItem(item: PlayListItem) {
+    this.fetchService.nextSelected((item))
+  }
+
 
   deleteItem(item: PlayListItem) {
     const index: number = this.playlistItems.findIndex((it: PlayListItem) => it.id === item.id);

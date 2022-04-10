@@ -25,4 +25,5 @@ export class PlaylistComponent implements OnInit {
   saveList() {
     this.fetchService.saveList(this.items)
   }
+
 }
