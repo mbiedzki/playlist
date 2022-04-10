@@ -31,6 +31,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { NgModule } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FlexModule } from '@angular/flex-layout';
+import { MatMenuModule } from '@angular/material/menu';
+import { DesktopViewComponent } from './desktop/desktop-view/desktop-view.component';
 
 
 @NgModule({
@@ -43,6 +45,7 @@ import { FlexModule } from '@angular/flex-layout';
     ItemComponent,
     MoreButtonComponent,
     MySnackBarComponent,
+    DesktopViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +73,7 @@ import { FlexModule } from '@angular/flex-layout';
     MatGridListModule,
     MatSlideToggleModule,
     FlexModule,
+    MatMenuModule,
   ],
   providers: [
     MySnackBarComponent,

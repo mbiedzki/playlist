@@ -3,6 +3,8 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { fromEvent, Observable, Subscription } from 'rxjs';
+import { AppRoutingModule } from './app-routing.module';
+import { J } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-root',
@@ -18,35 +20,28 @@ export class AppComponent {
   resizeObservable: Observable<Event> = new Observable<Event>();
   resizeSubscription: Subscription = new Subscription();
   public innerWidth: number = 0;
-  public switchToMobile: number = 768;
+  public mobileMode: boolean = false;
 
-  constructor(private dialog: MatDialog, private overlay: OverlayContainer, private elementref: ElementRef, private renderer: Renderer2) { }
+  constructor(private dialog: MatDialog, private overlay: OverlayContainer, private elementref: ElementRef, private renderer: Renderer2, private rootModule: AppRoutingModule) { }
 
-  ngOnInit(): void {
-    //set initial dark mode
+  async ngOnInit() {
     this.initMode();
-
-    //on toggle change class of app and class of overlays and of body and save user preference
-    this.toggleControl.valueChanges.subscribe((darkMode) => {
-      this.saveTogglePref(darkMode);
-      this.setMode(darkMode);
-    });
-
-    //monitor width to switch to mobile view
-    this.innerWidth = window.innerWidth;
-    this.resizeObservable = fromEvent(window, 'resize');
-    this.resizeSubscription = this.resizeObservable.subscribe(evt => {
-      this.innerWidth = (evt.target as any).innerWidth;
-    });
+    await this.setWidthListener();
   }
 
+  //set initial dark mode
   initMode() {
     const darkMode: boolean = JSON.parse(localStorage.getItem('darkMode') || 'false');
     this.setMode(darkMode);
     this.toggleControl.setValue(darkMode);
+    this.toggleControl.valueChanges.subscribe((dMode: boolean) => {
+      this.setMode(dMode);
+    });
   }
 
+  //on toggle change class of app and class of overlays and of body and save user preference
   setMode(darkMode: boolean) {
+    this.saveTogglePref(darkMode);
     const darkClassName = 'dark-mode';
     this.className = darkMode ? darkClassName : '';
     if (darkMode) {
@@ -60,7 +55,21 @@ export class AppComponent {
 
   saveTogglePref(mode: boolean) {
     localStorage.setItem('darkMode', JSON.stringify(mode));
-    console.log('darkmode preference saved', mode);
+    console.log('dark mode preference saved', mode);
+  }
+
+  //setup initial routes and watch for changes in width
+  async setWidthListener() {
+    this.innerWidth = window.innerWidth;
+    this.mobileMode = this.innerWidth <= 768;
+    await this.rootModule.updateRoots(this.mobileMode)
+    this.resizeObservable = fromEvent(window, 'resize');
+    this.resizeSubscription = this.resizeObservable.subscribe(async (evt) => {
+      let prevMobile = JSON.parse(JSON.stringify(this.mobileMode))
+      this.innerWidth = (evt.target as any).innerWidth;
+      this.mobileMode = this.innerWidth <= 768;
+      if(prevMobile !== this.mobileMode) await this.rootModule.updateRoots(this.mobileMode)
+    });
   }
 
   ngOnDestroy() {

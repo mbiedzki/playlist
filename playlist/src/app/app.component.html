@@ -1,27 +1,32 @@
-<mat-card *ngIf="innerWidth > switchToMobile">
+<mat-toolbar color="primary">
 
-  <mat-toolbar color="primary">
-    <h1>Simple playlist</h1>
-    <span class="spacer"></span>
-    <mat-icon>light_mode</mat-icon>
-    <mat-slide-toggle [formControl]="toggleControl" color="accent">
-    </mat-slide-toggle>
-    <mat-icon><span class="material-icons-outlined">dark_mode</span></mat-icon>
-  </mat-toolbar>
-
-  <div class="mat-app-background" fxLayout="row" fxLayoutGap="10px">
-    <div fxFlex="50">
-      <app-playlist></app-playlist>
-    </div>
-    <div fxFlex="50">
-      <app-search></app-search>
-    </div>
+  <!--  menu for mobile mode-->
+  <div *ngIf="mobileMode">
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <a routerLink="/playlist" mat-menu-item>
+        <mat-icon>queue_music</mat-icon>
+        Playlist</a>
+      <a routerLink="/search" mat-menu-item>
+        <mat-icon>search</mat-icon>
+        Search</a>
+    </mat-menu>
   </div>
 
-</mat-card>
+  <!--  header-->
+  <h1>Simple playlist:&nbsp;</h1>
+  <h1 *ngIf="!mobileMode">desktop view</h1>
+  <h1 *ngIf="mobileMode">mobile view</h1>
+  <span class="spacer"></span>
 
-<mat-card *ngIf="innerWidth <= switchToMobile">
-  Mobile
-</mat-card>
+  <!--  dark moe switch-->
+  <mat-icon>light_mode</mat-icon>
+  <mat-slide-toggle [formControl]="toggleControl" color="accent">
+  </mat-slide-toggle>
+  <mat-icon><span class="material-icons-outlined">dark_mode</span></mat-icon>
+
+</mat-toolbar>
 
 <router-outlet></router-outlet>
