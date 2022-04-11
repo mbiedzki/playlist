@@ -1,8 +1,5 @@
 <mat-card fxLayout="row">
-  <div fxFlex="70">
-    <div matLine>Selected: {{selectedItem.title}} - {{selectedItem.artist}}</div>
-  </div>
-  <div fxFlex="30">
+  <div fxFlex="40">
     <button mat-icon-button mat-raised-button (click)="play()" color="primary" class="player-icon">
       <mat-icon>play_arrow</mat-icon>
     </button>
@@ -15,5 +12,11 @@
     <button mat-icon-button mat-raised-button (click)="volDown()" color="primary" class="player-icon">
       <mat-icon>remove</mat-icon>
     </button>
+  </div>
+  <div fxFlex="10" *ngIf="selectedItem?.picture">
+    <img matListAvatar src="{{selectedItem.picture}}" alt="no image" class="my-image">
+  </div>
+  <div fxFlex="40" *ngIf="selectedItem?.title">
+    <div matLine>{{selectedItem.title}} - {{selectedItem.artist}}</div>
   </div>
 </mat-card>

@@ -22,8 +22,10 @@ export class PlayerComponent implements OnInit {
       this.items = list
     })
     this.fetchService.sharedSelectedItem.subscribe((item: PlayListItem) => {
+      this.audio.pause()
       this.selectedItem = item
       this.audio.src = this.selectedItem.preview
+      this.audio.play()
     })
     this.audio.volume = 0.5
   }
