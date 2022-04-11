@@ -11,21 +11,15 @@ import { PlayListItem } from '../../common/item/item.component';
   styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit {
-  private items: Array<PlayListItem> = []
   public audio: any = new Audio();
   public selectedItem: any;
 
   constructor(private fetchService: FetchService) { }
 
   ngOnInit(): void {
-    this.fetchService.getPlayList().subscribe((list: Array<PlayListItem>) => {
-      this.items = list
-    })
     this.fetchService.sharedSelectedItem.subscribe((item: PlayListItem) => {
-      this.audio.pause()
       this.selectedItem = item
       this.audio.src = this.selectedItem.preview
-      this.audio.play()
     })
     this.audio.volume = 0.5
   }

@@ -20,7 +20,6 @@ export class ItemComponent implements OnInit {
   @Input() item: PlayListItem = { title: '', artist: '', picture: '', id: 0, preview: '' };
   @Input() type: string = 'searchList' || 'playlist';
   playlistItems: Array<PlayListItem> = [];
-  selectedItem: any;
 
   constructor(
     private _snackBar: MySnackBarComponent,
@@ -33,7 +32,6 @@ export class ItemComponent implements OnInit {
     this.fetchService.getPlayList().subscribe((playList: Array<PlayListItem>) => {
       this.playlistItems = playList;
     });
-    this.fetchService.sharedSelectedItem.subscribe((item: PlayListItem) => this.selectedItem = item)
   }
 
   addToPlaylist(item: PlayListItem) {
