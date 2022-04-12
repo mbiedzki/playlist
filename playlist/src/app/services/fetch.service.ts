@@ -15,7 +15,7 @@ export class FetchService {
     'x-rapidapi-key': '5b8d016c10msh84d7709da21eddcp15589djsn30b9e476996e'
   };
   private playlistItems: Array<PlayListItem> = [];
-  public selectedItem: any = new BehaviorSubject({ title: '', artist: '', picture: '', id: 0, preview: '' });
+  public selectedItem: any = new BehaviorSubject(undefined);
   sharedSelectedItem = this.selectedItem.asObservable();
 
 
@@ -54,7 +54,7 @@ export class FetchService {
     this._snackBar.openSnackBar('Playlist saved');
   }
 
-  nextSelected(item: PlayListItem) {
+  nextSelected(item: PlayListItem | undefined) {
     this.selectedItem.next(item)
   }
 

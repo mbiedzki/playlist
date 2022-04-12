@@ -1,22 +1,21 @@
-<mat-card fxLayout="row">
-  <div fxFlex="40">
-    <button mat-icon-button mat-raised-button (click)="play()" color="primary" class="player-icon">
+<mat-card>
+  <mat-list>
+    <mat-list-item>
+    <button mat-raised-button (click)="play()" color="primary" class="player-icon" matTooltip="Play">
       <mat-icon>play_arrow</mat-icon>
     </button>
-    <button mat-icon-button mat-raised-button (click)="pause()" color="primary" class="player-icon">
+    <button mat-raised-button (click)="pause()" color="primary" class="player-icon" matTooltip="Pause">
       <mat-icon>pause</mat-icon>
     </button>
-    <button mat-icon-button mat-raised-button (click)="volUp()" color="primary" class="player-icon">
+    <button mat-raised-button (click)="volUp()" color="primary" class="player-icon" matTooltip="Volume up">
       <mat-icon>add</mat-icon>
     </button>
-    <button mat-icon-button mat-raised-button (click)="volDown()" color="primary" class="player-icon">
+    <button mat-raised-button (click)="volDown()" color="primary" class="player-icon" matTooltip="Volume down">
       <mat-icon>remove</mat-icon>
     </button>
-  </div>
-  <div fxFlex="10" *ngIf="selectedItem?.picture">
-    <img matListAvatar src="{{selectedItem.picture}}" alt="no image" class="my-image">
-  </div>
-  <div fxFlex="40" *ngIf="selectedItem?.title">
-    <div matLine>{{selectedItem.title}} - {{selectedItem.artist}}</div>
-  </div>
+      <img matListAvatar *ngIf="selectedItem" src="{{selectedItem.picture}}" alt="no image" >
+      <div matLine>{{selectedItem.title}}</div>
+      <div matLine >{{selectedItem.artist}}</div>
+    </mat-list-item>
+  </mat-list>
 </mat-card>

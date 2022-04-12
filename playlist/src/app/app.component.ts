@@ -81,7 +81,9 @@ export class AppComponent {
       let prevMobile = JSON.parse(JSON.stringify(this.mobileMode))
       this.innerWidth = (evt.target as any).innerWidth;
       this.mobileMode = this.innerWidth <= 768;
-      if(prevMobile !== this.mobileMode) await this.rootModule.updateRoots(this.mobileMode)
+      if(prevMobile !== this.mobileMode) {
+        await this.rootModule.updateRoots(this.mobileMode)
+      }
     });
   }
 

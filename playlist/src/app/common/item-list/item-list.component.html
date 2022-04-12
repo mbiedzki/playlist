@@ -7,7 +7,7 @@
 
 <!-- component layout for play list, not clickable-->
 <div *ngIf="type === 'playlist'">
-<mat-list class="dark-theme" *ngFor="let item of items">
+<mat-action-list class="dark-theme" *ngFor="let item of items">
   <app-item [item]="item" [type]="type"></app-item>
-</mat-list>
+</mat-action-list>
 </div>

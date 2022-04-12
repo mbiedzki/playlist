@@ -13,13 +13,18 @@ import { PlayListItem } from '../../common/item/item.component';
 export class PlayerComponent implements OnInit {
   public audio: any = new Audio();
   public selectedItem: any;
+  private itemSubscription: any;
 
   constructor(private fetchService: FetchService) { }
 
   ngOnInit(): void {
-    this.fetchService.sharedSelectedItem.subscribe((item: PlayListItem) => {
-      this.selectedItem = item
-      this.audio.src = this.selectedItem.preview
+    this.itemSubscription = this.fetchService.sharedSelectedItem.subscribe((item: PlayListItem) => {
+      if(!this.selectedItem || this.selectedItem?.id !== item?.id) this.selectedItem = item;
+      if (this.selectedItem?.preview?.length) {
+          this.audio.src = this.selectedItem.preview
+          this.audio.play()
+          console.log('player item changed', this.selectedItem?.title)
+      }
     })
     this.audio.volume = 0.5
   }
@@ -38,6 +43,12 @@ export class PlayerComponent implements OnInit {
 
   volDown() {
     this.audio.volume -= 0.1
+  }
+
+  ngOnDestroy() {
+    this.audio.pause()
+    this.audio.src = ''
+    this.itemSubscription.unsubscribe()
   }
 
 }

@@ -1,17 +1,15 @@
 <mat-card>
 
-  <mat-toolbar color="primary" class="mat-elevation-z8">
+  <mat-toolbar color="primary" class="mat-elevation-z8 my-toolbar">
     Playlist
   </mat-toolbar>
-
-  <app-player></app-player>
 
   <app-item-list [items]="items" [type]="'playlist'"></app-item-list>
 
   <div class="my-button">
     <button matSuffix aria-label="Save" color="primary" mat-raised-button
+            matTooltip="Save playlist"
             (click)="saveList()">
-      Save playlist
       <mat-icon>save_alt</mat-icon>
     </button>
 
