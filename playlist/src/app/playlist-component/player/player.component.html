@@ -13,9 +13,11 @@
     <button mat-raised-button (click)="volDown()" color="primary" class="player-icon" matTooltip="Volume down">
       <mat-icon>remove</mat-icon>
     </button>
+      <div matLine *ngIf="!selectedItem">Select a song to play...</div>
       <img matListAvatar *ngIf="selectedItem" src="{{selectedItem.picture}}" alt="no image" >
-      <div matLine>{{selectedItem.title}}</div>
-      <div matLine >{{selectedItem.artist}}</div>
+      <div matLine *ngIf="selectedItem?.title">{{selectedItem.title}}</div>
+      <div matLine *ngIf="selectedItem?.artist">{{selectedItem.artist}}</div>
     </mat-list-item>
   </mat-list>
+  <mat-progress-bar mode="determinate" *ngIf="selectedItem" color="primary" [value]="progress$ | async"></mat-progress-bar>
 </mat-card>
