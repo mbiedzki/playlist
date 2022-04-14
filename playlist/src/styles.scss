@@ -47,16 +47,13 @@ body {
   display: inline-block !important;
 }
 
-.my-item {
-  margin-top: 0;
-  margin-right: 10px;
-  margin-left: auto;
+.my-panel {
+  min-height: 70vh !important;
+  max-height: 70vh !important;
+  //overflow: auto !important;
 }
 
-.my-card {
-  margin: 10px;
-}
-
-.my-toolbar {
-  border-radius: 5px;
+.my-list {
+  height: 40vh;
+  overflow: auto !important;
 }

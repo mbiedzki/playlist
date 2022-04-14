@@ -1,4 +1,5 @@
-<mat-toolbar color="primary">
+<mat-card class="my-app">
+<mat-toolbar color="primary" class="my-tool">
 
   <!--  menu for mobile mode-->
   <div *ngIf="mobileMode">
@@ -25,10 +26,11 @@
   <mat-icon>light_mode</mat-icon>
   <mat-slide-toggle [formControl]="toggleControl" color="accent">
   </mat-slide-toggle>
-  <mat-icon><span class="material-icons-outlined">dark_mode</span></mat-icon>
+  <mat-icon>dark_mode</mat-icon>
 
 </mat-toolbar>
 
 <app-player></app-player>
 
 <router-outlet></router-outlet>
+</mat-card>

@@ -1,5 +1,4 @@
-<!-- component layout for search list-->
-<mat-list-item *ngIf="type === 'searchList'" class="my-item">
+<mat-list-item>
   <mat-divider></mat-divider>
   <img matListAvatar src="{{item.picture}}" alt="no image" class="my-image">
   <div matLine>{{item.title}}</div>
@@ -8,23 +7,11 @@
           matTooltip="Play">
     <mat-icon>play_arrow</mat-icon>
   </button>
-  <button matSuffix aria-label="Add" mat-button color="primary" (click)="addToPlaylist(item)" class="my-button"
+  <button *ngIf="type === 'searchList'" matSuffix aria-label="Add" mat-button color="primary" (click)="addToPlaylist(item)" class="my-button"
           matTooltip="Add to playlist">
     <mat-icon>add</mat-icon>
   </button>
-</mat-list-item>
-
-<!-- component layout for play list-->
-<mat-list-item *ngIf="type === 'playlist'" class="my-item">
-  <mat-divider></mat-divider>
-  <img matListAvatar src="{{item.picture}}" alt="no image" class="my-image">
-  <div matLine>{{item.title}}</div>
-  <div matLine>{{item.artist}}</div>
-  <button matSuffix aria-label="Play" mat-button color="primary" (click)="playItem(item)" class="my-button"
-          matTooltip="Play">
-    <mat-icon>play_arrow</mat-icon>
-  </button>
-  <button matSuffix aria-label="Delete" mat-button color="primary" (click)="deleteItem(item)" class="my-button"
+  <button *ngIf="type === 'playlist'" matSuffix aria-label="Delete" mat-button color="primary" (click)="deleteItem(item)" class="my-button"
           matTooltip="Remove from playlist">
     <mat-icon>clear</mat-icon>
   </button>
