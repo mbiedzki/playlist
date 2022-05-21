@@ -13,6 +13,9 @@
       <button mat-raised-button (click)="volDown()" color="primary" class="player-icon" matTooltip="Volume down">
         <mat-icon>remove</mat-icon>
       </button>
+      <button mat-raised-button (click)="saveList()" color="primary" class="player-icon" matTooltip="Save playlist">
+        <mat-icon>save_alt</mat-icon>
+      </button>
       <div matLine *ngIf="!selectedItem">Select a song to play...</div>
       <img matListAvatar *ngIf="selectedItem" src="{{selectedItem.picture}}" alt="no image">
       <div matLine *ngIf="selectedItem?.title">{{selectedItem.title}}</div>
@@ -32,21 +35,8 @@
     <button mat-raised-button (click)="pause()" color="primary" class="player-icon" matTooltip="Pause">
       <mat-icon>pause</mat-icon>
     </button>
-    <button mat-raised-button (click)="volUp()" color="primary" class="player-icon" matTooltip="Volume up">
-      <mat-icon>add</mat-icon>
+    <button mat-raised-button (click)="saveList()" color="primary" class="player-icon" matTooltip="Save playlist">
+      <mat-icon>save_alt</mat-icon>
     </button>
-    <button mat-raised-button (click)="volDown()" color="primary" class="player-icon" matTooltip="Volume down">
-      <mat-icon>remove</mat-icon>
-    </button>
-  </mat-card>
-  <mat-card>
-    <div fxLayout="row" fxLayoutAlign="center" *ngIf="selectedItem?.picture">
-      <img matListAvatar src="{{selectedItem.picture}}" alt="no image">
-    </div>
-    <div fxLayout="row" fxLayoutAlign="center" matLine *ngIf="!selectedItem">Select a song to play...</div>
-    <div fxLayout="row" fxLayoutAlign="center" matLine *ngIf="selectedItem?.title">{{selectedItem.title}}</div>
-    <div fxLayout="row" fxLayoutAlign="center" matLine *ngIf="selectedItem?.artist">{{selectedItem.artist}}</div>
-    <mat-progress-bar mode="determinate" *ngIf="selectedItem" color="primary"
-                      [value]="progress | async"></mat-progress-bar>
   </mat-card>
 </div>

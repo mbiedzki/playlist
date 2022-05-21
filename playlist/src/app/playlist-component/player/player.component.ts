@@ -2,6 +2,7 @@ import { Component, Injectable, OnInit } from '@angular/core';
 import { ListService } from '../../services/list.service';
 import { Observable, of, Subscription } from 'rxjs';
 import { MobileModeService } from '../../services/mobileMode.service';
+import { PlayListItem } from '../../common/item/item.component';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,9 @@ export class PlayerComponent implements OnInit {
   mobileMode: boolean = false;
   mobileModeSubs: Subscription = new Subscription();
 
+  items: Array<PlayListItem> = [];
+  itemsSubs: Subscription = new Subscription();
+
   constructor(private listService: ListService, private mobileModeService: MobileModeService) { }
 
   ngOnInit(): void {
@@ -34,6 +38,9 @@ export class PlayerComponent implements OnInit {
     this.mobileModeSubs = this.mobileModeService.mobileMode.subscribe((mobileMode => {
       this.mobileMode = mobileMode;
     }));
+    this.itemsSubs = this.listService.list.subscribe((playList: Array<PlayListItem>) => {
+      this.items = playList;
+    });
   }
 
   initAudio() {
@@ -51,6 +58,10 @@ export class PlayerComponent implements OnInit {
       }
     });
     this.audio.volume = 0.5;
+  }
+
+  saveList() {
+    this.listService.saveList(this.items);
   }
 
   play() {
@@ -85,6 +96,7 @@ export class PlayerComponent implements OnInit {
     this.itemSubscription?.unsubscribe();
     this.audioSubscription?.unsubscribe();
     this.mobileModeSubs.unsubscribe();
+    this.itemsSubs.unsubscribe();
   }
 
 }

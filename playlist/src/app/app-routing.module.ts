@@ -4,12 +4,11 @@ import { PlaylistComponent } from './playlist-component/playlist/playlist.compon
 import { SearchComponent } from './search-component/search/search.component';
 import { DesktopViewComponent } from './desktop/desktop-view/desktop-view.component';
 import { ListService } from './services/list.service';
-import { PlayerComponent } from './playlist-component/player/player.component';
 
 
 const mobileRoutes: Routes = [
   {
-    path: 'playlist',
+    path: '',
     component: PlaylistComponent,
   },
   {
@@ -36,7 +35,7 @@ export class AppRoutingModule {
     console.log('update roots for mobile:', mobileMode);
     if (mobileMode) {
       this.router.resetConfig(mobileRoutes);
-      await this.router.navigate(['/playlist']);
+      await this.router.navigate(['']);
     } else {
       this.router.resetConfig(routes);
       await this.router.navigate(['']);

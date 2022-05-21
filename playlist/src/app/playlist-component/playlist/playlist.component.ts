@@ -32,10 +32,6 @@ export class PlaylistComponent implements OnInit {
     }));
   }
 
-  saveList() {
-    this.listService.saveList(this.items);
-  }
-
   ngOnDestroy() {
     this.itemsSubs.unsubscribe();
     this.mobileModeSubs.unsubscribe();
