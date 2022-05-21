@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FetchService } from '../../services/fetch.service';
+import { ListService } from '../../services/list.service';
 import { MySnackBarComponent } from '../../common/my-snack-bar/my-snack-bar.component';
 import { PlayListItem } from '../../common/item/item.component';
 
@@ -16,7 +16,7 @@ export class SearchComponent {
   searchString: string = '';
 
   constructor(
-    private fetchService: FetchService,
+    private fetchService: ListService,
     private _snackBar: MySnackBarComponent,
   ) {
   }

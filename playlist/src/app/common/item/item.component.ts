@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MySnackBarComponent } from '../my-snack-bar/my-snack-bar.component';
-import { FetchService } from '../../services/fetch.service';
+import { ListService } from '../../services/list.service';
 
 export interface PlayListItem {
-  title: string;
-  artist: string;
-  picture: string;
-  id: number;
-  preview: string;
+  title?: string;
+  artist?: string;
+  picture?: string;
+  id?: number;
+  preview?: string;
 }
 
 @Component({
@@ -23,13 +23,13 @@ export class ItemComponent implements OnInit {
 
   constructor(
     private _snackBar: MySnackBarComponent,
-    private fetchService: FetchService,
+    private fetchService: ListService,
   ) {
   }
 
   ngOnInit(): void {
     //get current playlist from fetch service
-    this.fetchService.getPlayList().subscribe((playList: Array<PlayListItem>) => {
+    this.fetchService.list.subscribe((playList: Array<PlayListItem>) => {
       this.playlistItems = playList;
     });
   }
@@ -42,11 +42,11 @@ export class ItemComponent implements OnInit {
         this._snackBar.openSnackBar('Item already in playlist', 'warn');
       } else {
         //update through observable in fetch service
-        this.fetchService.updatePlayList(item).subscribe((playList: Array<PlayListItem>) => {
-          this.playlistItems = playList;
-          this._snackBar.openSnackBar('Song added to playlist')
-          console.log('play list updated: ', item.title, this.playlistItems);
-        });
+        // this.fetchService.updatePlayList(this.playlistItems).subscribe((playList: Array<PlayListItem>) => {
+        //   this.playlistItems = playList;
+        //   this._snackBar.openSnackBar('Song added to playlist')
+        //   console.log('play list updated: ', item.title, this.playlistItems);
+        // });
       }
     } else {
       this._snackBar.openSnackBar('Maximum 5 items allowed in playlist', 'warn');
@@ -54,7 +54,7 @@ export class ItemComponent implements OnInit {
   }
 
   playItem(item: PlayListItem) {
-    this.fetchService.nextSelected((item))
+    // this.fetchService.nextSelected((item))
   }
 
 

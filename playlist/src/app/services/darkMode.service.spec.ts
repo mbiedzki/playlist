@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FetchService } from './fetch.service';
+import { DarkModeService } from './darkMode.service';
 
-describe('FetchService', () => {
-  let service: FetchService;
+describe('ModeService', () => {
+  let service: DarkModeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FetchService);
+    service = TestBed.inject(DarkModeService);
   });
 
   it('should be created', () => {

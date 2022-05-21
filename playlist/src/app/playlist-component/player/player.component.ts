@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Injectable, NgZone, OnInit, Output } from '@angular/core';
-import { FetchService } from '../../services/fetch.service';
+import { ListService } from '../../services/list.service';
 import { PlayListItem } from '../../common/item/item.component';
 import { BehaviorSubject, interval, Observable, of } from 'rxjs';
 
@@ -19,23 +19,23 @@ export class PlayerComponent implements OnInit {
   public progress$: Observable<number> = of(0);
   private audioSubscribtion: any;
 
-  constructor(private fetchService: FetchService) { }
+  constructor(private fetchService: ListService) { }
 
   ngOnInit(): void {
-    this.itemSubscription = this.fetchService.sharedSelectedItem.subscribe((item: PlayListItem) => {
-      if (!this.selectedItem || this.selectedItem?.id !== item?.id) this.selectedItem = item;
-      if (this.selectedItem?.preview?.length) {
-        if (this.audioSubscribtion) this.audioSubscribtion.unsubscribe()
-        this.audio.currentTime = 0
-        this.progress$ = of(0)
-        this.duration = 0
-        this.audio.src = this.selectedItem.preview;
-        this.audio.play();
-        this.audioSubscribtion = this.subrscribeToProgress()
-        console.log('player item changed', this.selectedItem?.title);
-      }
-    });
-    this.audio.volume = 0.5;
+  //   this.itemSubscription = this.fetchService.sharedSelectedItem.subscribe((item: PlayListItem) => {
+  //     if (!this.selectedItem || this.selectedItem?.id !== item?.id) this.selectedItem = item;
+  //     if (this.selectedItem?.preview?.length) {
+  //       if (this.audioSubscribtion) this.audioSubscribtion.unsubscribe()
+  //       this.audio.currentTime = 0
+  //       this.progress$ = of(0)
+  //       this.duration = 0
+  //       this.audio.src = this.selectedItem.preview;
+  //       this.audio.play();
+  //       this.audioSubscribtion = this.subrscribeToProgress()
+  //       console.log('player item changed', this.selectedItem?.title);
+  //     }
+  //   });
+  //   this.audio.volume = 0.5;
   }
 
   play() {
@@ -47,11 +47,11 @@ export class PlayerComponent implements OnInit {
   }
 
   volUp() {
-    this.audio.volume += 0.1;
+    if(this.audio.volume < 0.9) this.audio.volume += 0.1;
   }
 
   volDown() {
-    this.audio.volume -= 0.1;
+    if (this.audio.volume > 0.1) this.audio.volume -= 0.1;
   }
 
   subrscribeToProgress() {
@@ -67,8 +67,8 @@ export class PlayerComponent implements OnInit {
   ngOnDestroy() {
     this.audio.pause();
     this.audio.src = '';
-    this.itemSubscription.unsubscribe();
-    this.audioSubscribtion.unsubscribe()
+    this.itemSubscription?.unsubscribe();
+    this.audioSubscribtion?.unsubscribe()
   }
 
 }

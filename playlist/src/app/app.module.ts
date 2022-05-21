@@ -33,7 +33,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FlexModule } from '@angular/flex-layout';
 import { MatMenuModule } from '@angular/material/menu';
 import { DesktopViewComponent } from './desktop/desktop-view/desktop-view.component';
-import { AngMusicPlayerModule } from 'ang-music-player';
 import { CommonModule } from '@angular/common';
 import { PlayerComponent } from './playlist-component/player/player.component';
 
@@ -77,7 +76,6 @@ import { PlayerComponent } from './playlist-component/player/player.component';
     MatSlideToggleModule,
     FlexModule,
     MatMenuModule,
-    AngMusicPlayerModule,
     CommonModule,
   ],
   providers: [

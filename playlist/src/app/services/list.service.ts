@@ -7,55 +7,53 @@ import { MySnackBarComponent } from '../common/my-snack-bar/my-snack-bar.compone
 @Injectable({
   providedIn: 'root'
 })
-export class FetchService {
+export class ListService {
   private url = 'https://deezerdevs-deezer.p.rapidapi.com/search?q=';
   private headers = {
     'Content-Type': 'application/json',
     'x-rapidapi-host': 'deezerdevs-deezer.p.rapidapi.com',
     'x-rapidapi-key': '5b8d016c10msh84d7709da21eddcp15589djsn30b9e476996e'
   };
-  private playlistItems: Array<PlayListItem> = [];
-  public selectedItem: any = new BehaviorSubject(undefined);
-  sharedSelectedItem = this.selectedItem.asObservable();
 
+  private listData = new BehaviorSubject<Array<PlayListItem>>([])
+  list = this.listData.asObservable();
+
+  private selectedItemData = new BehaviorSubject<PlayListItem | undefined>(undefined);
+  selectedItem = this.selectedItemData.asObservable();
 
   constructor(
     private http: HttpClient, private _snackBar: MySnackBarComponent
   ) {
   }
 
-  public getItems(queryString: string, index: number = 0): Observable<any> {
+  //deezer API fetch
+  getItems(queryString: string, index: number = 0): Observable<any> {
     const url: string = this.url + queryString + '&index=' + index.toString();
     return this.http.get<any>(url, { headers: this.headers, observe: 'body', responseType: 'json' });
   }
 
-  public getPlayList(): any {
-    return new Observable(observer => {
-      observer.next(this.playlistItems);
-    });
+  initPlayList() {
+    const storedList: string = localStorage.getItem('playlist') || '';
+    const storedArray: Array<PlayListItem> = storedList?.length ? JSON.parse(storedList) : [];
+    this.updatePlayList(storedArray)
+    console.log('play list initialized', storedArray);
   }
 
-  public updatePlayList(item: PlayListItem): any {
-    return new Observable(observer => {
-      this.playlistItems.push(item);
-      observer.next(this.playlistItems);
-    });
+  updatePlayList(list: Array<PlayListItem>) {
+    this.listData.next(list)
   }
 
-  public initPlayList(list: Array<PlayListItem>): any {
-    return new Observable(observer => {
-      this.playlistItems = [...list] || [];
-      observer.next(this.playlistItems);
-    });
-  }
-
-  public saveList(items: Array<PlayListItem>) {
-    localStorage.setItem('playlist', JSON.stringify(items));
+  saveList(list: Array<PlayListItem>) {
+    localStorage.setItem('playlist', JSON.stringify(list));
+    console.log('play list saved', list);
     this._snackBar.openSnackBar('Playlist saved');
   }
 
-  nextSelected(item: PlayListItem | undefined) {
-    this.selectedItem.next(item)
+  updateSelectedItem(item: PlayListItem) {
+    this.selectedItemData.next(item)
   }
+
+
+
 
 }

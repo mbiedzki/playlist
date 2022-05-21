@@ -2,10 +2,9 @@ import { Component, ElementRef, HostBinding, Renderer2 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { fromEvent, Observable, Subscription } from 'rxjs';
-import { AppRoutingModule } from './app-routing.module';
-import { PlayListItem } from './common/item/item.component';
-import { FetchService } from './services/fetch.service';
+import { ListService } from './services/list.service';
+import { DarkModeService } from './services/darkMode.service';
+import { MobileModeService } from './services/mobileMode.service';
 
 @Component({
   selector: 'app-root',
@@ -18,42 +17,41 @@ export class AppComponent {
   @HostBinding('class') className = '';
 
   toggleControl = new FormControl(false);
-  resizeObservable: Observable<Event> = new Observable<Event>();
-  resizeSubscription: Subscription = new Subscription();
-  public innerWidth: number = 0;
-  public mobileMode: boolean = false;
-  public darkMode: boolean = false;
+  darkMode: boolean = false;
+  mobileMode: boolean = false;
 
-  constructor(private dialog: MatDialog, private overlay: OverlayContainer, private elementref: ElementRef, private renderer: Renderer2,
-              private rootModule: AppRoutingModule, private fetchService: FetchService) { }
+  constructor(private dialog: MatDialog, private overlay: OverlayContainer, private elementref: ElementRef,
+              private renderer: Renderer2, private listService: ListService, private darkModeService: DarkModeService,
+              private mobileModeService: MobileModeService) { }
 
   async ngOnInit() {
-    this.initMode();
-    await this.setWidthListener();
-    await this.initPlaylist()
+    this.initDarkModeHandlers()
+    this.listService.initPlayList()
+    this.initMobileModeHandlers()
   }
 
-  async initPlaylist() {
-    const storedList: string = localStorage.getItem('playlist') || '';
-    const storedArray: Array<PlayListItem> = storedList?.length ? JSON.parse(storedList) : [];
-    // initialization of list in fetch service
-    await this.fetchService.initPlayList(storedArray).subscribe((playList: Array<PlayListItem>) => {
-      console.log('play list initialized', playList);
-    });
-  }
-
-  //set initial dark mode
-  initMode() {
-    this.darkMode = JSON.parse(localStorage.getItem('darkMode') || 'false');
-    this.setMode(this.darkMode);
+  initDarkModeHandlers() {
+    this.darkModeService.darkMode.subscribe((darkMode => {
+      this.darkMode = darkMode
+    }))
+    this.darkModeService.initDarkMode();
     this.toggleControl.setValue(this.darkMode);
-    this.toggleControl.valueChanges.subscribe((dMode: boolean) => {
-      this.setMode(dMode);
+    this.toggleControl.valueChanges.subscribe((darkMode: boolean) => {
+      this.darkModeService.updateDarkMode(darkMode)
+      this.setAppDarkMode(darkMode)
     });
   }
+
+  async initMobileModeHandlers() {
+    this.mobileModeService.mobileMode.subscribe((mobileMode => {
+      this.mobileMode = mobileMode
+    }))
+    await this.mobileModeService.setMobileModeHandlers()
+  }
+
 
   //on toggle change class of app and class of overlays and of body and save user preference
-  setMode(darkMode: boolean) {
+  setAppDarkMode(darkMode: boolean) {
     this.saveTogglePref(darkMode);
     const darkClassName = 'dark-mode';
     this.className = darkMode ? darkClassName : '';
@@ -71,23 +69,6 @@ export class AppComponent {
     console.log('dark mode preference saved', mode);
   }
 
-  //setup initial routes and watch for changes in width
-  async setWidthListener() {
-    this.innerWidth = window.innerWidth;
-    this.mobileMode = this.innerWidth <= 768;
-    await this.rootModule.updateRoots(this.mobileMode)
-    this.resizeObservable = fromEvent(window, 'resize');
-    this.resizeSubscription = this.resizeObservable.subscribe(async (evt) => {
-      let prevMobile = JSON.parse(JSON.stringify(this.mobileMode))
-      this.innerWidth = (evt.target as any).innerWidth;
-      this.mobileMode = this.innerWidth <= 768;
-      if(prevMobile !== this.mobileMode) {
-        await this.rootModule.updateRoots(this.mobileMode)
-      }
-    });
-  }
-
   ngOnDestroy() {
-    this.resizeSubscription.unsubscribe();
   }
 }

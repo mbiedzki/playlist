@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PlayListItem } from '../../common/item/item.component';
-import { FetchService } from '../../services/fetch.service';
+import { ListService } from '../../services/list.service';
 
 @Component({
   selector: 'app-playlist',
@@ -12,14 +12,14 @@ export class PlaylistComponent implements OnInit {
   items: Array<PlayListItem> = [];
 
   constructor(
-    private fetchService: FetchService
+    private fetchService: ListService
   ) {
   }
 
   async ngOnInit() {
-    await this.fetchService.getPlayList().subscribe((playList: Array<PlayListItem>) => {
-      this.items = playList
-    });
+    // await this.fetchService.getPlayList().subscribe((playList: Array<PlayListItem>) => {
+    //   this.items = playList
+    // });
   }
 
   saveList() {

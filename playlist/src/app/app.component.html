@@ -7,6 +7,9 @@
       <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
+      <a routerLink="/player" mat-menu-item>
+        <mat-icon>play_arrow</mat-icon>
+        Player</a>
       <a routerLink="/playlist" mat-menu-item>
         <mat-icon>queue_music</mat-icon>
         Playlist</a>
@@ -22,15 +25,13 @@
   <h1 *ngIf="mobileMode">mobile view</h1>
   <span class="spacer"></span>
 
-  <!--  dark moe switch-->
+  <!--  dark mode switch-->
   <mat-icon>light_mode</mat-icon>
   <mat-slide-toggle [formControl]="toggleControl" color="accent">
   </mat-slide-toggle>
   <mat-icon>dark_mode</mat-icon>
 
 </mat-toolbar>
-
-<app-player></app-player>
 
 <router-outlet></router-outlet>
 </mat-card>
