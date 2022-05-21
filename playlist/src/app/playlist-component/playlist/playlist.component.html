@@ -1,4 +1,4 @@
-<mat-card *ngIf="!mobileMode">
+<mat-card *ngIf="!mobileMode" fxLayout="column" fxFlexFill fxLayoutGap="5px">
   <mat-toolbar color="primary" class="mat-elevation-z8 my-toolbar">
     Playlist
   </mat-toolbar>
@@ -14,7 +14,7 @@
   </div>
 </mat-card>
 
-<mat-card *ngIf="mobileMode">
+<mat-card *ngIf="mobileMode" fxLayout="column" fxFlexFill fxLayoutGap="5px">
   <div class="scrollable-list">
     <app-item-list [items]="items" [type]="'playlist'"></app-item-list>
   </div>

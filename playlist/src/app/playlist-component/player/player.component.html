@@ -46,7 +46,7 @@
     <div fxLayout="row" fxLayoutAlign="center" matLine *ngIf="!selectedItem">Select a song to play...</div>
     <div fxLayout="row" fxLayoutAlign="center" matLine *ngIf="selectedItem?.title">{{selectedItem.title}}</div>
     <div fxLayout="row" fxLayoutAlign="center" matLine *ngIf="selectedItem?.artist">{{selectedItem.artist}}</div>
+    <mat-progress-bar mode="determinate" *ngIf="selectedItem" color="primary"
+                      [value]="progress | async"></mat-progress-bar>
   </mat-card>
-  <mat-progress-bar mode="determinate" *ngIf="selectedItem" color="primary"
-                    [value]="progress | async"></mat-progress-bar>
 </div>
