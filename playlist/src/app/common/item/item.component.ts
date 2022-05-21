@@ -17,51 +17,33 @@ export interface PlayListItem {
 })
 
 export class ItemComponent implements OnInit {
-  @Input() item: PlayListItem = { title: '', artist: '', picture: '', id: 0, preview: '' };
+  @Input() item: PlayListItem = {} ;
   @Input() type: string = 'searchList' || 'playlist';
   playlistItems: Array<PlayListItem> = [];
 
   constructor(
     private _snackBar: MySnackBarComponent,
-    private fetchService: ListService,
+    private listService: ListService,
   ) {
   }
 
   ngOnInit(): void {
     //get current playlist from fetch service
-    this.fetchService.list.subscribe((playList: Array<PlayListItem>) => {
+    this.listService.list.subscribe((playList: Array<PlayListItem>) => {
       this.playlistItems = playList;
     });
   }
 
   addToPlaylist(item: PlayListItem) {
-    if (this.playlistItems?.length < 5) {
-      //check if item already exist in playlist
-      const found: PlayListItem | undefined = this.playlistItems.find((it: PlayListItem) => it.id === item.id);
-      if (found) {
-        this._snackBar.openSnackBar('Item already in playlist', 'warn');
-      } else {
-        //update through observable in fetch service
-        // this.fetchService.updatePlayList(this.playlistItems).subscribe((playList: Array<PlayListItem>) => {
-        //   this.playlistItems = playList;
-        //   this._snackBar.openSnackBar('Song added to playlist')
-        //   console.log('play list updated: ', item.title, this.playlistItems);
-        // });
-      }
-    } else {
-      this._snackBar.openSnackBar('Maximum 5 items allowed in playlist', 'warn');
-    }
+    this.listService.addToPlayList(item)
   }
 
   playItem(item: PlayListItem) {
-    // this.fetchService.nextSelected((item))
+    this.listService.updateSelectedItem(item)
   }
 
-
   deleteItem(item: PlayListItem) {
-    const index: number = this.playlistItems.findIndex((it: PlayListItem) => it.id === item.id);
-    if (index > -1) this.playlistItems.splice(index, 1);
-    console.log('item deleted: ', item.title);
+   this.listService.deleteFromPlaylist(item)
   }
 
 }

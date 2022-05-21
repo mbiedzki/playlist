@@ -1,15 +1,22 @@
-<mat-card class="my-panel">
-<mat-card>
+<mat-card *ngIf="!mobileMode">
   <mat-toolbar color="primary" class="mat-elevation-z8 my-toolbar">
     Search
   </mat-toolbar>
-  <mat-card>
+  <div>
     <app-search-field (valueEmitter)="loadItems($event)"></app-search-field>
     <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
-  </mat-card>
+  </div>
+  <div class="scrollable-list">
+    <app-item-list [items]="items" [type]="'searchList'"></app-item-list>
+    <app-more-button [hidden]="!items?.length" (loadMoreEmitter)="loadMoreItems()"></app-more-button>
+  </div>
 </mat-card>
-<mat-card class="my-list">
-  <app-item-list [items]="items" [type]="'searchList'"></app-item-list>
-  <app-more-button [hidden]="!items?.length" (loadMoreEmitter)="loadMoreItems()"></app-more-button>
-</mat-card>
+
+<mat-card *ngIf="mobileMode">
+  <app-search-field (valueEmitter)="loadItems($event)"></app-search-field>
+  <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+  <div class="scrollable-list">
+    <app-item-list [items]="items" [type]="'searchList'"></app-item-list>
+    <app-more-button [hidden]="!items?.length" (loadMoreEmitter)="loadMoreItems()"></app-more-button>
+  </div>
 </mat-card>

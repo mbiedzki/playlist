@@ -1,15 +1,10 @@
-<mat-card class="my-app">
-<mat-toolbar color="primary" class="my-tool">
-
+<mat-toolbar color="primary">
   <!--  menu for mobile mode-->
   <div *ngIf="mobileMode">
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
       <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <a routerLink="/player" mat-menu-item>
-        <mat-icon>play_arrow</mat-icon>
-        Player</a>
       <a routerLink="/playlist" mat-menu-item>
         <mat-icon>queue_music</mat-icon>
         Playlist</a>
@@ -20,18 +15,18 @@
   </div>
 
   <!--  header-->
-  <h1>Simple playlist:&nbsp;</h1>
-  <h1 *ngIf="!mobileMode">desktop view</h1>
-  <h1 *ngIf="mobileMode">mobile view</h1>
+  <h1 *ngIf="!mobileMode">playlist desktop</h1>
+  <h1 *ngIf="mobileMode">playlist mobile</h1>
   <span class="spacer"></span>
 
   <!--  dark mode switch-->
   <mat-icon>light_mode</mat-icon>
-  <mat-slide-toggle [formControl]="toggleControl" color="accent">
+  <mat-slide-toggle [formControl]="toggleControl" color="accent" title="Light / Dark mode">
   </mat-slide-toggle>
   <mat-icon>dark_mode</mat-icon>
 
 </mat-toolbar>
 
+<app-player></app-player>
+
 <router-outlet></router-outlet>
-</mat-card>

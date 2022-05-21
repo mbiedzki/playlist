@@ -1,5 +1,6 @@
 @use '/node_modules/@angular/material' as mat;
 @import "/node_modules/@angular/material/_theming.scss";
+
 @include mat.core();
 
 $light-primary: mat.define-palette(mat.$deep-orange-palette);
@@ -47,13 +48,11 @@ body {
   display: inline-block !important;
 }
 
-.my-panel {
-  min-height: 70vh !important;
-  max-height: 70vh !important;
-  //overflow: auto !important;
+.mat-card {
+  margin: 5px;
 }
 
-.my-list {
-  height: 40vh;
-  overflow: auto !important;
+.scrollable-list {
+  overflow-y: auto !important;
+  max-height: 50vh;
 }

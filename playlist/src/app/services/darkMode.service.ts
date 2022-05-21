@@ -16,7 +16,13 @@ export class DarkModeService {
     this.updateDarkMode(storeDarkMode);
   }
 
-  public updateDarkMode(mobileMode: boolean) {
+  updateDarkMode(mobileMode: boolean) {
     this.darkModeData.next(mobileMode)
   }
+
+  saveDarkMode(mode: boolean) {
+    localStorage.setItem('darkMode', JSON.stringify(mode));
+    console.log('dark mode preference saved', mode);
+  }
+
 }

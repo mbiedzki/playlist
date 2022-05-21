@@ -8,13 +8,21 @@ import { PlayerComponent } from './playlist-component/player/player.component';
 
 
 const mobileRoutes: Routes = [
-  { path: 'playlist', component: PlaylistComponent },
-  { path: 'search', component: SearchComponent },
-  { path: 'player', component: PlayerComponent },
+  {
+    path: 'playlist',
+    component: PlaylistComponent,
+  },
+  {
+    path: 'search',
+    component: SearchComponent,
+  },
 ];
 
 const routes: Routes = [
-  { path: '', component: DesktopViewComponent },
+  {
+    path: '',
+    component: DesktopViewComponent,
+  },
 ];
 
 @NgModule({
@@ -28,7 +36,7 @@ export class AppRoutingModule {
     console.log('update roots for mobile:', mobileMode);
     if (mobileMode) {
       this.router.resetConfig(mobileRoutes);
-      await this.router.navigate(['/player']);
+      await this.router.navigate(['/playlist']);
     } else {
       this.router.resetConfig(routes);
       await this.router.navigate(['']);
