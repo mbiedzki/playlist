@@ -40,9 +40,11 @@ export class AppComponent {
     this.darkModeSubs = this.darkModeService.darkMode.subscribe((darkMode => {
       this.darkMode = darkMode;
     }));
+    this.setAppDarkMode(this.darkMode);
     this.toggleControl.setValue(this.darkMode);
     this.toggleSubs = this.toggleControl.valueChanges.subscribe((darkMode: boolean) => {
       this.setAppDarkMode(darkMode);
+      this.darkModeService.saveDarkMode(darkMode);
     });
   }
 
@@ -57,7 +59,6 @@ export class AppComponent {
   //on toggle change class of app and class of overlays and of body and save user preference
   setAppDarkMode(darkMode: boolean) {
     this.darkModeService.updateDarkMode(darkMode);
-    this.darkModeService.saveDarkMode(darkMode);
     const darkClassName = 'dark-mode';
     this.className = darkMode ? darkClassName : '';
     if (darkMode) {

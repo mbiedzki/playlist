@@ -21,10 +21,6 @@
     "@angular/platform-browser": "~13.2.0",
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
-    "ang-music-player": "0.0.4",
-    "ngx-audio-player": "^11.0.4",
-    "ngx-plyr": "^4.0.0",
-    "plyr": "^3.6.12",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

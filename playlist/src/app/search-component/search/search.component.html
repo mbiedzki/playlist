@@ -1,4 +1,4 @@
-<mat-card *ngIf="!mobileMode" fxLayout="column" fxFlexFill fxLayoutGap="5px">
+<div *ngIf="!mobileMode">
   <mat-toolbar color="primary" class="mat-elevation-z8 my-toolbar">
     Search
   </mat-toolbar>
@@ -10,7 +10,7 @@
     <app-item-list [items]="items" [type]="'searchList'"></app-item-list>
     <app-more-button [hidden]="!items?.length" (loadMoreEmitter)="loadMoreItems()"></app-more-button>
   </div>
-</mat-card>
+</div>
 
 <mat-card *ngIf="mobileMode">
   <app-search-field (valueEmitter)="loadItems($event)"></app-search-field>

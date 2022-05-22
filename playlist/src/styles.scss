@@ -54,5 +54,5 @@ body {
 
 .scrollable-list {
   overflow-y: auto !important;
-  height: 60vh;
+  max-height: calc(60vh - 40px);
 }

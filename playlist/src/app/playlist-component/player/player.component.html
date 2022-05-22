@@ -1,42 +1,54 @@
 <mat-card *ngIf="!mobileMode">
-  <mat-list>
-    <mat-list-item>
-      <button mat-raised-button (click)="play()" color="primary" class="player-icon" matTooltip="Play">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="25px">
+      <div>
+        <div matLine *ngIf="!selectedItem">Select a song to play...</div>
+        <img matListAvatar *ngIf="selectedItem" src="{{selectedItem.picture}}" alt="no image">
+      </div>
+      <div>
+        <div matLine *ngIf="selectedItem?.title">{{selectedItem.title}}</div>
+        <div matLine *ngIf="selectedItem?.artist">{{selectedItem.artist}}</div>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px">
+      <button mat-raised-button (click)="play()" color="primary" matTooltip="Play">
         <mat-icon>play_arrow</mat-icon>
       </button>
-      <button mat-raised-button (click)="pause()" color="primary" class="player-icon" matTooltip="Pause">
+      <button mat-raised-button (click)="pause()" color="primary" matTooltip="Pause">
         <mat-icon>pause</mat-icon>
       </button>
-      <button mat-raised-button (click)="volUp()" color="primary" class="player-icon" matTooltip="Volume up">
+      <button mat-raised-button (click)="volUp()" color="primary" matTooltip="Volume up">
         <mat-icon>add</mat-icon>
       </button>
-      <button mat-raised-button (click)="volDown()" color="primary" class="player-icon" matTooltip="Volume down">
+      <button mat-raised-button (click)="volDown()" color="primary" matTooltip="Volume down">
         <mat-icon>remove</mat-icon>
       </button>
-      <button mat-raised-button (click)="saveList()" color="primary" class="player-icon" matTooltip="Save playlist">
+      <button mat-raised-button (click)="saveList()" color="primary" matTooltip="Save playlist">
         <mat-icon>save_alt</mat-icon>
       </button>
-      <div matLine *ngIf="!selectedItem">Select a song to play...</div>
-      <img matListAvatar *ngIf="selectedItem" src="{{selectedItem.picture}}" alt="no image">
-      <div matLine *ngIf="selectedItem?.title">{{selectedItem.title}}</div>
-      <div matLine *ngIf="selectedItem?.artist">{{selectedItem.artist}}</div>
-    </mat-list-item>
-  </mat-list>
+    </div>
+  </div>
   <mat-progress-bar mode="determinate" *ngIf="selectedItem" color="primary"
                     [value]="progress | async"></mat-progress-bar>
 </mat-card>
 
 
 <div *ngIf="mobileMode">
-  <mat-card fxLayout="row" fxLayoutAlign="center">
-    <button mat-raised-button (click)="play()" color="primary" class="player-icon" matTooltip="Play">
-      <mat-icon>play_arrow</mat-icon>
-    </button>
-    <button mat-raised-button (click)="pause()" color="primary" class="player-icon" matTooltip="Pause">
-      <mat-icon>pause</mat-icon>
-    </button>
-    <button mat-raised-button (click)="saveList()" color="primary" class="player-icon" matTooltip="Save playlist">
-      <mat-icon>save_alt</mat-icon>
-    </button>
+  <mat-card>
+    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
+      <button mat-raised-button (click)="play()" color="primary" matTooltip="Play">
+        <mat-icon>play_arrow</mat-icon>
+      </button>
+      <button mat-raised-button (click)="pause()" color="primary" matTooltip="Pause">
+        <mat-icon>pause</mat-icon>
+      </button>
+      <button mat-raised-button (click)="saveList()" color="primary" matTooltip="Save playlist">
+        <mat-icon>save_alt</mat-icon>
+      </button>
+    </div>
+    <div style="margin-top: 10px">
+      <mat-progress-bar mode="determinate" *ngIf="selectedItem" color="primary"
+                        [value]="progress | async"></mat-progress-bar>
+    </div>
   </mat-card>
 </div>

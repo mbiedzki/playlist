@@ -14,8 +14,11 @@ import { MobileModeService } from '../../services/mobileMode.service';
 export class SearchComponent {
   items: Array<PlayListItem> = [];
   loading: boolean = false;
-  index: number = 0;
+  index: number = 0; //page index for deezer API
   searchString: string = '';
+  trial: number = 1;
+  maxTrials: number = 10;
+  listSubscription: Subscription = new Subscription();
 
   mobileMode: boolean = false;
   mobileModeSubs: Subscription = new Subscription();
@@ -39,21 +42,39 @@ export class SearchComponent {
       this.searchString = search;
       this.items = [];
       this.index = 0;
+      this.trial = 1;
     }
-    //if at least 3 chars start fetching
-    if (this.searchString.length >= 3) {
+    if (this.listSubscription) {
+      this.listSubscription.unsubscribe();
+      this.loading = false;
+    }
+    //if at least 4 chars start fetching
+    if (this.searchString.length >= 4) {
       this.loading = true;
-      this.listService.getItems(this.searchString, this.index).subscribe((res: any) => {
-        this.loading = false;
+      this.listSubscription = this.listService.getItems(this.searchString, this.index).subscribe((res: any) => {
         if (res?.data?.length) {
+          this.loading = false;
+          this.trial = 1;
           this.items = [...this.items, ...this.decodeItems(res.data)];
+          this.index++;
           console.log('received and decoded items', {
-            total: this.items.length,
+            search: this.searchString,
+            total: this.items,
             received: res.data,
           });
-          this.index++;
         } else {
-          this._snackBar.openSnackBar('Please try again in few seconds - limited access to DEEZER API...');
+          this.trial++;
+          if (this.trial <= this.maxTrials) {
+            setTimeout(() => {
+              console.log('trying to fetch', this.trial);
+              this.loadItems(this.searchString);
+            }, 2000);
+          } else {
+            this.trial = 0;
+            this.loading = false;
+            this._snackBar.openSnackBar('Please try again in few seconds - limited access to DEEZER API...');
+
+          }
         }
       });
     }
@@ -82,5 +103,6 @@ export class SearchComponent {
 
   ngOnDestroy() {
     this.mobileModeSubs.unsubscribe();
+    this.listSubscription.unsubscribe();
   }
 }

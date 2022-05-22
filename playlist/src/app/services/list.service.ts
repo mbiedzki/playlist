@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, retry, shareReplay } from 'rxjs';
 import { PlayListItem } from '../common/item/item.component';
 import { MySnackBarComponent } from '../common/my-snack-bar/my-snack-bar.component';
 
@@ -33,7 +33,14 @@ export class ListService {
       headers: this.headers,
       observe: 'body',
       responseType: 'json',
-    });
+    }).pipe(
+      retry(5),
+      catchError((err) => {
+        console.log('deezer API fetch error', err);
+        return err;
+      }),
+      shareReplay(),
+    );
   }
 
   initPlayList() {
@@ -71,7 +78,7 @@ export class ListService {
     if (index > -1) list.splice(index, 1);
     this.listData.next(list);
     console.log('item deleted: ', item.title);
-    this._snackBar.openSnackBar('Item deleted');
+    this._snackBar.openSnackBar('Item removed');
   }
 
   saveList(list: Array<PlayListItem>) {

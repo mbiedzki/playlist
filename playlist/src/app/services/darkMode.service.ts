@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DarkModeService {
 
@@ -12,17 +12,19 @@ export class DarkModeService {
   constructor() {}
 
   initDarkMode() {
-    const storeDarkMode = JSON.parse(localStorage.getItem('darkMode') || 'false');
+    const storeDarkModeString = localStorage.getItem('darkMode');
+    const storeDarkMode: boolean = storeDarkModeString === 'true';
     this.updateDarkMode(storeDarkMode);
+    console.log('dark mode preference read', storeDarkMode);
   }
 
   updateDarkMode(mobileMode: boolean) {
-    this.darkModeData.next(mobileMode)
+    this.darkModeData.next(mobileMode);
   }
 
-  saveDarkMode(mode: boolean) {
-    localStorage.setItem('darkMode', JSON.stringify(mode));
-    console.log('dark mode preference saved', mode);
+  saveDarkMode(mobileMode: boolean) {
+    localStorage.setItem('darkMode', JSON.stringify(mobileMode));
+    console.log('dark mode preference saved', mobileMode);
   }
 
 }
