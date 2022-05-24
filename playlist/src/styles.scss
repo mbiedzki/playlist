@@ -3,9 +3,10 @@
 
 @include mat.core();
 
-$light-primary: mat.define-palette(mat.$deep-orange-palette);
+$light-primary: mat.define-palette(mat.$brown-palette);
 $light-accent: mat.define-palette(mat.$orange-palette);
-$light-warn: mat.define-palette(mat.$red-palette);
+$light-warn: mat.define-palette(mat.$deep-orange-palette);
+
 $angular-default-theme: mat.define-light-theme(
     (
       color: (
@@ -15,6 +16,7 @@ $angular-default-theme: mat.define-light-theme(
       ),
     )
 );
+
 @include mat.all-component-themes($angular-default-theme);
 
 $dark-primary: mat.define-palette(mat.$gray-palette, 600);
@@ -29,7 +31,6 @@ $angular-dark-theme: mat.define-dark-theme(
       ),
     )
 );
-
 
 body {
   margin: 0;
