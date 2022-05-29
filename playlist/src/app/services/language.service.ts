@@ -13,8 +13,9 @@ export class LanguageService {
   constructor(private translocoService: TranslocoService) {}
 
   initLanguageMode() {
-    const storeLangMode: string | null = localStorage.getItem('langMode');
-    if (storeLangMode) this.updateLanguageMode(storeLangMode);
+    let storeLangMode: string | null = localStorage.getItem('langMode');
+    if (!storeLangMode) storeLangMode = 'en';
+    this.updateLanguageMode(storeLangMode);
     console.log('language read:', storeLangMode);
   }
 
