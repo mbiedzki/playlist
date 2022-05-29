@@ -1,8 +1,10 @@
-<mat-form-field class="full-width" appearance="fill">
-  <mat-label>Artist, album, title, etc. - min. 4 letters.</mat-label>
-  <input matInput type="text" [(ngModel)]="value" (ngModelChange)="valueEmitter.emit($event)"
-         (keyup.enter)="valueEmitter.emit(value)" id="searchField">
-  <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-    <mat-icon>close</mat-icon>
-  </button>
-</mat-form-field>
+<ng-container *transloco="let t">
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>{{ t('search_helper') }}</mat-label>
+    <input matInput type="text" [(ngModel)]="value" (ngModelChange)="valueEmitter.emit($event)"
+           (keyup.enter)="valueEmitter.emit(value)" id="searchField">
+    <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</ng-container>

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, fromEvent, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { AppRoutingModule } from '../app-routing.module';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { Platform } from '@angular/cdk/platform';
 
 @Injectable({
   providedIn: 'root',
@@ -10,42 +12,40 @@ export class MobileModeService {
   private mobileModeData = new BehaviorSubject<boolean>(false);
   mobileMode = this.mobileModeData.asObservable();
 
-  resizeObservable: Observable<Event> = new Observable<Event>();
-  resizeSubscription: Subscription = new Subscription();
-  public innerWidth: number = 0;
-  public innerHeight: number = 0;
+  private volumeMobileData = new BehaviorSubject<boolean>(false);
+  volumeMobile = this.volumeMobileData.asObservable();
 
-  constructor(private rootModule: AppRoutingModule) { }
+  resizeSubscription: Subscription = new Subscription();
+
+  constructor(private rootModule: AppRoutingModule, private breakpointObserver: BreakpointObserver,
+              private platformService: Platform) { }
 
   public async updateMobileMode(mobileMode: boolean) {
     this.mobileModeData.next(mobileMode);
     await this.rootModule.updateRoots(mobileMode);
   }
 
-  getMobileModeFromWindowProps() {
-    return this.innerWidth <= 768 || this.innerWidth < this.innerHeight;
+  public updateVolumeMobile(volumeMobile: boolean) {
+    console.log('volume visible for desktop', !volumeMobile);
+    this.volumeMobileData.next(volumeMobile);
   }
 
-  //setup initial routes
-  async initMobileMode() {
-    this.innerWidth = window.innerWidth;
-    this.innerHeight = window.innerHeight;
-    this.mobileModeData.next(this.getMobileModeFromWindowProps());
-    await this.rootModule.updateRoots(this.mobileModeData.getValue());
-  }
-
-  //watch for changes in width
+  //watch for changes in device and size
   async setMobileModeHandlers() {
-    this.resizeObservable = fromEvent(window, 'resize');
-    this.resizeSubscription = this.resizeObservable.subscribe(async (evt) => {
-      this.innerWidth = (evt.target as any).innerWidth;
-      this.innerHeight = (evt.target as any).innerHeight;
-      const previousMobileMode = this.mobileModeData.getValue();
-      const currentMobileMode = this.getMobileModeFromWindowProps();
-      if (previousMobileMode !== currentMobileMode) {
-        await this.updateMobileMode(currentMobileMode);
-      }
-    });
+    this.resizeSubscription = this.breakpointObserver
+      .observe([Breakpoints.Handset, Breakpoints.TabletPortrait])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          this.updateMobileMode(true);
+        } else {
+          this.updateMobileMode(false);
+        }
+      });
+    if (this.platformService.IOS || this.platformService.ANDROID) {
+      this.updateVolumeMobile(true);
+    } else {
+      this.updateVolumeMobile(false);
+    }
   }
 
   ngOnDestroy() {

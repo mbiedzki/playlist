@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, retry, shareReplay } from 'rxjs';
 import { PlayListItem } from '../common/item/item.component';
 import { MySnackBarComponent } from '../common/my-snack-bar/my-snack-bar.component';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,7 @@ export class ListService {
   selectedItem = this.selectedItemData.asObservable();
 
   constructor(
-    private http: HttpClient, private _snackBar: MySnackBarComponent,
+    private http: HttpClient, private _snackBar: MySnackBarComponent, private translocoService: TranslocoService,
   ) {
   }
 
@@ -60,15 +61,15 @@ export class ListService {
       //check if item already exist in playlist
       const found: PlayListItem | undefined = list.find((it: PlayListItem) => it.id === item.id);
       if (found) {
-        this._snackBar.openSnackBar('Item already in playlist', 'warn');
+        this._snackBar.openSnackBar(this.translocoService.translate('snack_duplicate'), 'warn');
       } else {
         list.push(item);
         this.listData.next(list);
         console.log('item added: ', item.title);
-        this._snackBar.openSnackBar('Item added');
+        this._snackBar.openSnackBar(this.translocoService.translate('snack_added'));
       }
     } else {
-      this._snackBar.openSnackBar('Maximum 5 items allowed in playlist', 'warn');
+      this._snackBar.openSnackBar(this.translocoService.translate('snack_max_reached'), 'warn');
     }
   }
 
@@ -77,14 +78,14 @@ export class ListService {
     const index: number = list.findIndex((it: PlayListItem) => it.id === item.id);
     if (index > -1) list.splice(index, 1);
     this.listData.next(list);
-    console.log('item deleted: ', item.title);
-    this._snackBar.openSnackBar('Item removed');
+    console.log('item removed: ', item.title);
+    this._snackBar.openSnackBar(this.translocoService.translate('snack_removed'));
   }
 
   saveList(list: Array<PlayListItem>) {
     localStorage.setItem('playlist', JSON.stringify(list));
     console.log('play list saved', list);
-    this._snackBar.openSnackBar('Playlist saved');
+    this._snackBar.openSnackBar(this.translocoService.translate(('snack_saved')));
   }
 
   updateSelectedItem(item: PlayListItem) {

@@ -6,6 +6,7 @@ import { ListService } from './services/list.service';
 import { DarkModeService } from './services/darkMode.service';
 import { MobileModeService } from './services/mobileMode.service';
 import { Subscription } from 'rxjs';
+import { LanguageService } from './services/language.service';
 
 @Component({
   selector: 'app-root',
@@ -18,19 +19,23 @@ export class AppComponent {
   @HostBinding('class') className = '';
 
   darkMode: boolean = false;
-  mobileMode: boolean = false;
-  toggleControl = new FormControl(false);
-
   darkModeSubs: Subscription = new Subscription();
+  darkModeToggleSubs: Subscription = new Subscription();
+  darkModeToggleControl = new FormControl(false);
+
+  mobileMode: boolean = false;
   mobileModeSubs: Subscription = new Subscription();
-  toggleSubs: Subscription = new Subscription();
+
+  selectedLang: string = 'en';
+  languageModeSubs: Subscription = new Subscription();
 
   constructor(private dialog: MatDialog, private overlay: OverlayContainer, private elementref: ElementRef,
               private renderer: Renderer2, private listService: ListService, private darkModeService: DarkModeService,
-              private mobileModeService: MobileModeService) { }
+              private mobileModeService: MobileModeService, private languageService: LanguageService) { }
 
   async ngOnInit() {
     this.initDarkModeHandlers();
+    this.initLanguageModeHandlers();
     this.listService.initPlayList();
     await this.initMobileModeHandlers();
   }
@@ -41,22 +46,33 @@ export class AppComponent {
       this.darkMode = darkMode;
     }));
     this.setAppDarkMode(this.darkMode);
-    this.toggleControl.setValue(this.darkMode);
-    this.toggleSubs = this.toggleControl.valueChanges.subscribe((darkMode: boolean) => {
+    this.darkModeToggleControl.setValue(this.darkMode);
+    this.darkModeToggleSubs = this.darkModeToggleControl.valueChanges.subscribe((darkMode: boolean) => {
       this.setAppDarkMode(darkMode);
       this.darkModeService.saveDarkMode(darkMode);
     });
   }
 
+  setLanguage(lang: string) {
+    this.languageService.updateLanguageMode(lang);
+    this.languageService.saveLanguageMode(lang);
+  }
+
+  initLanguageModeHandlers() {
+    this.languageService.initLanguageMode();
+    this.languageModeSubs = this.languageService.languageMode.subscribe((lang => {
+      this.selectedLang = lang.toUpperCase();
+    }));
+  }
+
   async initMobileModeHandlers() {
-    await this.mobileModeService.initMobileMode();
     this.mobileModeSubs = this.mobileModeService.mobileMode.subscribe((mobileMode => {
       this.mobileMode = mobileMode;
     }));
     await this.mobileModeService.setMobileModeHandlers();
   }
 
-  //on toggle change class of app and class of overlays and of body and save user preference
+  //on darkModeToggle change class of app and class of overlays and of body and save user preference
   setAppDarkMode(darkMode: boolean) {
     this.darkModeService.updateDarkMode(darkMode);
     const darkClassName = 'dark-mode';
@@ -73,6 +89,7 @@ export class AppComponent {
   ngOnDestroy() {
     this.darkModeSubs.unsubscribe();
     this.mobileModeSubs.unsubscribe();
-    this.toggleSubs.unsubscribe();
+    this.darkModeToggleSubs.unsubscribe();
+    this.languageModeSubs.unsubscribe();
   }
 }

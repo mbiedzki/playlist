@@ -1,32 +1,52 @@
-<mat-toolbar color="primary">
-  <!--  menu for mobile mode-->
-  <div *ngIf="mobileMode">
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
-      <mat-icon>menu</mat-icon>
+<ng-container *transloco="let t">
+  <mat-toolbar color="primary">
+    <!--  menu for mobile mode-->
+    <div *ngIf="mobileMode">
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <a routerLink="/" mat-menu-item>
+          <mat-icon>queue_music</mat-icon>
+          Playlist</a>
+        <a routerLink="/search" mat-menu-item>
+          <mat-icon>search</mat-icon>
+          Search</a>
+      </mat-menu>
+    </div>
+
+
+    <!--  header-->
+    <h1 *ngIf="!mobileMode">{{ t('title') }}</h1>
+    <h1 *ngIf="mobileMode">{{ t('mobile_title') }}</h1>
+
+    <span class="spacer"></span>
+
+    <!--  dark mode switch-->
+    <mat-icon>light_mode</mat-icon>
+    <mat-slide-toggle [formControl]="darkModeToggleControl" color="accent" [title]="t('display')"></mat-slide-toggle>
+    <mat-icon>dark_mode</mat-icon>
+    <span class="spacer-switch"></span>
+
+    <!--  language -->
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu" [title]="t('language')">
+      {{selectedLang}}
+      <mat-icon>language</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <a routerLink="/" mat-menu-item>
-        <mat-icon>queue_music</mat-icon>
-        Playlist</a>
-      <a routerLink="/search" mat-menu-item>
-        <mat-icon>search</mat-icon>
-        Search</a>
+      <button mat-menu-item (click)="setLanguage('en')">
+        <span>English</span>
+      </button>
+      <button mat-menu-item (click)="setLanguage('pl')">
+        <span>Polski</span>
+      </button>
     </mat-menu>
-  </div>
+    <span class="spacer-switch"></span>
 
-  <!--  header-->
-  <h1 *ngIf="!mobileMode">playlist desktop</h1>
-  <h1 *ngIf="mobileMode">playlist mobile</h1>
-  <span class="spacer"></span>
 
-  <!--  dark mode switch-->
-  <mat-icon>light_mode</mat-icon>
-  <mat-slide-toggle [formControl]="toggleControl" color="accent" title="Light / Dark mode">
-  </mat-slide-toggle>
-  <mat-icon>dark_mode</mat-icon>
+  </mat-toolbar>
 
-</mat-toolbar>
+  <app-player></app-player>
 
-<app-player></app-player>
-
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</ng-container>

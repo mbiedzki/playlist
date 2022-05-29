@@ -1,0 +1,23 @@
+{
+  "title": " Playlista - duży ekran",
+  "mobile_title": " Playlista - mobilna",
+  "playlist": "Lista",
+  "search": "Szukaj",
+  "search_helper": "Wykonawca, album, tytuł, itp. - min. 4 znaki.",
+  "select_song": "Wybierz utwór aby odtwarzać...",
+  "play": "Odtwarzaj",
+  "pause": "Zatrzymaj",
+  "volume_up": "Głośność +",
+  "volume_down": "Głośność -",
+  "save_playlist": "Zapisz listę",
+  "display": "Tryb jasny / ciemny",
+  "language": "Wybierz język",
+  "more": "Więcej wyników",
+  "remove_from_playlist": "Usuń z listy",
+  "add_to_playlist": "Dodaj do listy",
+  "snack_duplicate": "Utwór już jest na liście",
+  "snack_max_reached": "Lista może zawierać max. 5 utworów",
+  "snack_added": "Utwór został dodany",
+  "snack_removed": "Utwór został usunięty",
+  "snack_saved": "Lista została zapisana"
+}

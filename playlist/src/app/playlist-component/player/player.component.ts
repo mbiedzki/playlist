@@ -24,6 +24,9 @@ export class PlayerComponent implements OnInit {
   mobileMode: boolean = false;
   mobileModeSubs: Subscription = new Subscription();
 
+  volumeMobile: boolean = false;
+  volumeMobileSubs: Subscription = new Subscription();
+
   items: Array<PlayListItem> = [];
   itemsSubs: Subscription = new Subscription();
 
@@ -37,6 +40,9 @@ export class PlayerComponent implements OnInit {
   initMode() {
     this.mobileModeSubs = this.mobileModeService.mobileMode.subscribe((mobileMode => {
       this.mobileMode = mobileMode;
+    }));
+    this.volumeMobileSubs = this.mobileModeService.volumeMobile.subscribe((volumeMobile => {
+      this.volumeMobile = volumeMobile;
     }));
     this.itemsSubs = this.listService.list.subscribe((playList: Array<PlayListItem>) => {
       this.items = playList;

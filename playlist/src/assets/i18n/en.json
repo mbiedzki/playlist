@@ -1,0 +1,23 @@
+{
+  "title": "Playlist - desktop",
+  "mobile_title": " Playlist - mobile",
+  "playlist": "Playlist",
+  "search": "Search",
+  "search_helper": "Artist, album, title, etc. - min. 4 letters.",
+  "select_song": "Select a song to play....",
+  "play": "Play",
+  "pause": "Pause",
+  "volume_up": "Volume up",
+  "volume_down": "Volume down",
+  "save_playlist": "Save playlist",
+  "display": "Light / Dark",
+  "language": "Select language",
+  "more": "More",
+  "remove_from_playlist": "Remove from playlist",
+  "add_to_playlist": "Add to playlist",
+  "snack_duplicate": "Item already in playlist",
+  "snack_max_reached": "Maximum 5 items allowed in playlist",
+  "snack_added": "Item added",
+  "snack_removed": "Item removed",
+  "snack_saved": "Playlist saved"
+}

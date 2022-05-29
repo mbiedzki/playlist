@@ -35,6 +35,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { DesktopViewComponent } from './desktop/desktop-view/desktop-view.component';
 import { CommonModule } from '@angular/common';
 import { PlayerComponent } from './playlist-component/player/player.component';
+import { TranslocoRootModule } from './transloco-root.module';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { PlayerComponent } from './playlist-component/player/player.component';
     FlexModule,
     MatMenuModule,
     CommonModule,
+    TranslocoRootModule,
   ],
   providers: [
     MySnackBarComponent,

@@ -1,22 +1,24 @@
-<div *ngIf="!mobileMode">
-  <mat-toolbar color="primary" class="mat-elevation-z8 my-toolbar">
-    Search
-  </mat-toolbar>
-  <div>
+<ng-container *transloco="let t">
+  <div *ngIf="!mobileMode">
+    <mat-toolbar color="primary" class="mat-elevation-z8 my-toolbar">
+      {{ t('search') }}
+    </mat-toolbar>
+    <div>
+      <app-search-field (valueEmitter)="loadItems($event)"></app-search-field>
+      <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+    </div>
+    <div class="scrollable-list">
+      <app-item-list [items]="items" [type]="'searchList'"></app-item-list>
+      <app-more-button [hidden]="!items?.length" (loadMoreEmitter)="loadMoreItems()"></app-more-button>
+    </div>
+  </div>
+
+  <mat-card *ngIf="mobileMode">
     <app-search-field (valueEmitter)="loadItems($event)"></app-search-field>
     <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
-  </div>
-  <div class="scrollable-list">
-    <app-item-list [items]="items" [type]="'searchList'"></app-item-list>
-    <app-more-button [hidden]="!items?.length" (loadMoreEmitter)="loadMoreItems()"></app-more-button>
-  </div>
-</div>
-
-<mat-card *ngIf="mobileMode">
-  <app-search-field (valueEmitter)="loadItems($event)"></app-search-field>
-  <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
-  <div class="scrollable-list">
-    <app-item-list [items]="items" [type]="'searchList'"></app-item-list>
-    <app-more-button [hidden]="!items?.length" (loadMoreEmitter)="loadMoreItems()"></app-more-button>
-  </div>
-</mat-card>
+    <div class="scrollable-list">
+      <app-item-list [items]="items" [type]="'searchList'"></app-item-list>
+      <app-more-button [hidden]="!items?.length" (loadMoreEmitter)="loadMoreItems()"></app-more-button>
+    </div>
+  </mat-card>
+</ng-container>
