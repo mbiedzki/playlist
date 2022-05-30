@@ -54,6 +54,8 @@ export class AppComponent {
   }
 
   setLightDarkMode(darkMode: boolean) {
+    this.darkMode = darkMode;
+    this.darkModeToggleControl.setValue(this.darkMode);
     this.setAppDarkMode(darkMode);
     this.darkModeService.saveDarkMode(darkMode);
   }
