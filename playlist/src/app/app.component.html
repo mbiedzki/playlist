@@ -8,10 +8,30 @@
       <mat-menu #menu="matMenu">
         <a routerLink="/" mat-menu-item>
           <mat-icon>queue_music</mat-icon>
-          Playlist</a>
+          {{ t('playlist') }}</a>
         <a routerLink="/search" mat-menu-item>
           <mat-icon>search</mat-icon>
-          Search</a>
+          {{ t('search') }}</a>
+        <button *ngIf="!darkMode" mat-menu-item aria-label="Menu" (click)="setLightDarkMode(true)">
+          <mat-icon>dark_mode</mat-icon>
+          {{ t('dark_mode') }}
+        </button>
+        <button *ngIf="darkMode" mat-menu-item aria-label="Menu" (click)="setLightDarkMode(false)">
+          <mat-icon>light_mode</mat-icon>
+          {{ t('light_mode') }}
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="langmenu" aria-label="Menu">
+          <mat-icon>language</mat-icon>
+          {{ t('language') }}
+        </button>
+      </mat-menu>
+      <mat-menu #langmenu="matMenu">
+        <button mat-menu-item (click)="setLanguage('en')">
+          <span>English</span>
+        </button>
+        <button mat-menu-item (click)="setLanguage('pl')">
+          <span>Polski</span>
+        </button>
       </mat-menu>
     </div>
 
@@ -22,26 +42,28 @@
 
     <span class="spacer"></span>
 
-    <!--  dark mode switch-->
-    <mat-icon>light_mode</mat-icon>
-    <mat-slide-toggle [formControl]="darkModeToggleControl" color="accent" [title]="t('display')"></mat-slide-toggle>
-    <mat-icon>dark_mode</mat-icon>
-    <span class="spacer-switch"></span>
+    <div *ngIf="!mobileMode">
+      <!--  dark mode switch-->
+      <mat-icon>light_mode</mat-icon>
+      <mat-slide-toggle [formControl]="darkModeToggleControl" color="accent" [title]="t('display')"></mat-slide-toggle>
+      <mat-icon>dark_mode</mat-icon>
+      <span class="spacer-switch"></span>
 
-    <!--  language -->
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu" [title]="t('language')">
-      {{selectedLang}}
-      <mat-icon>language</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="setLanguage('en')">
-        <span>English</span>
+      <!--  language -->
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu" [title]="t('language')">
+        {{selectedLang}}
+        <mat-icon>language</mat-icon>
       </button>
-      <button mat-menu-item (click)="setLanguage('pl')">
-        <span>Polski</span>
-      </button>
-    </mat-menu>
-    <span class="spacer-switch"></span>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="setLanguage('en')">
+          <span>English</span>
+        </button>
+        <button mat-menu-item (click)="setLanguage('pl')">
+          <span>Polski</span>
+        </button>
+      </mat-menu>
+      <span class="spacer-switch"></span>
+    </div>
 
 
   </mat-toolbar>

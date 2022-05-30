@@ -53,6 +53,11 @@ export class AppComponent {
     });
   }
 
+  setLightDarkMode(darkMode: boolean) {
+    this.setAppDarkMode(darkMode);
+    this.darkModeService.saveDarkMode(darkMode);
+  }
+
   setLanguage(lang: string) {
     this.languageService.updateLanguageMode(lang);
     this.languageService.saveLanguageMode(lang);
