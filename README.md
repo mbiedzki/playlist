@@ -3,9 +3,9 @@ Simple playlist based on free Deezer API
 
 Features: 
 
-- responsive design - detects screen size and mobile devices
-- Polish / English language switch (i18n)
-- light / dark mode
+- dark mode - scss and angular theming
+- responsive design - angular, detects screen size and mobile devices
+- language switch - transloco
 
 - search for title, album, artist
 - display found titles
