@@ -4,7 +4,7 @@ import { BehaviorSubject, catchError, Observable, retry } from 'rxjs';
 import { PlayListItem } from '../items/item/item.component';
 import { MySnackBarComponent } from './my-snack-bar/my-snack-bar.component';
 import { TranslocoService } from '@ngneat/transloco';
-import { API_KEY } from '../../key';
+import { API_KEY } from '../../../privateKeys/key';
 
 @Injectable({
   providedIn: 'root',
