@@ -1,8 +1,8 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { ListService } from '../../services/list.service';
-import { Observable, of, Subscription } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { MobileModeService } from '../../services/mobileMode.service';
-import { PlayListItem } from '../../common/item/item.component';
+import { PlayListItem } from '../../items/item/item.component';
 
 @Injectable({
   providedIn: 'root',
@@ -13,22 +13,22 @@ import { PlayListItem } from '../../common/item/item.component';
   styleUrls: ['./player.component.scss'],
 })
 export class PlayerComponent implements OnInit {
-  public selectedItem: any;
-  private itemSubscription: any;
+  selectedItem: PlayListItem | undefined;
+  itemSubscription = new Subscription();
 
-  public audio: any = new Audio();
-  public duration: number = 0;
-  public progress: Observable<number> = of(0);
-  private audioSubscription: any;
+  audio = new Audio();
+  duration = 0;
+  progress = of(0);
+  audioSubscription = new Subscription();
 
-  mobileMode: boolean = false;
-  mobileModeSubs: Subscription = new Subscription();
+  mobileMode = false;
+  mobileModeSubs = new Subscription();
 
-  volumeMobile: boolean = false;
-  volumeMobileSubs: Subscription = new Subscription();
+  volumeMobile = false;
+  volumeMobileSubs = new Subscription();
 
   items: Array<PlayListItem> = [];
-  itemsSubs: Subscription = new Subscription();
+  itemsSubs = new Subscription();
 
   constructor(private listService: ListService, private mobileModeService: MobileModeService) { }
 
@@ -60,7 +60,6 @@ export class PlayerComponent implements OnInit {
         this.audio.src = this.selectedItem.preview;
         this.audio.play();
         this.audioSubscription = this.subscribeToProgress();
-        console.log('player item changed', this.selectedItem?.title);
       }
     });
     this.audio.volume = 0.5;

@@ -1,0 +1,21 @@
+<ng-container *transloco="let t">
+  <mat-list-item>
+    <img (click)="playItem(item)" alt="no image" matListAvatar src="{{item.picture}}">
+    <div (click)="playItem(item)" matLine>{{item.title}}</div>
+    <div (click)="playItem(item)" matLine>{{item.artist}}</div>
+    <button (click)="addToPlaylist(item)" *ngIf="type === 'searchList'" [matTooltip]="t('add_to_playlist')"
+            aria-label="Add"
+            color="primary"
+            mat-button
+            matSuffix>
+      <mat-icon>add</mat-icon>
+    </button>
+    <button (click)="deleteItem(item)" *ngIf="type === 'playlist'" [matTooltip]="t('remove_from_playlist')"
+            aria-label="Delete" color="primary"
+            mat-button
+            matSuffix>
+      <mat-icon>clear</mat-icon>
+    </button>
+    <mat-divider></mat-divider>
+  </mat-list-item>
+</ng-container>

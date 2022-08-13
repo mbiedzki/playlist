@@ -1,0 +1,70 @@
+<ng-container *transloco="let t">
+  <mat-card *ngIf="!mobileMode">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="25px">
+        <div>
+          <div *ngIf="!selectedItem" matLine>{{ t('select_song') }}</div>
+          <img *ngIf="selectedItem" alt="no image" matListAvatar src="{{selectedItem?.picture}}">
+        </div>
+        <div>
+          <div *ngIf="selectedItem?.title" matLine>{{selectedItem?.title}}</div>
+          <div *ngIf="selectedItem?.artist" matLine>{{selectedItem?.artist}}</div>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px">
+        <button (click)="play()" [matTooltip]="t('play')" color="primary" mat-raised-button>
+          <mat-icon>play_arrow</mat-icon>
+        </button>
+        <button (click)="pause()" [matTooltip]="t('pause')" color="primary" mat-raised-button>
+          <mat-icon>pause</mat-icon>
+        </button>
+        <button (click)="volUp()" *ngIf="!volumeMobile" [matTooltip]="t('volume_up')" color="primary" mat-raised-button>
+          <mat-icon>add</mat-icon>
+        </button>
+        <button (click)="volDown()" *ngIf="!volumeMobile" [matTooltip]="t('volume_down')" color="primary"
+                mat-raised-button>
+          <mat-icon>remove</mat-icon>
+        </button>
+        <button (click)="saveList()" [matTooltip]="t('save_playlist')" color="primary" mat-raised-button>
+          <mat-icon>save</mat-icon>
+        </button>
+      </div>
+    </div>
+    <mat-progress-bar *ngIf="selectedItem" [value]="progress | async" color="primary"
+                      mode="determinate"></mat-progress-bar>
+  </mat-card>
+
+
+  <div *ngIf="mobileMode">
+    <mat-card>
+      <div class="title-mobile" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="25px">
+        <div>
+          <div *ngIf="!selectedItem" matLine>{{ t('select_song') }}</div>
+          <div *ngIf="selectedItem?.title" matLine>{{selectedItem?.title}} - {{selectedItem?.artist}}</div>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
+        <button (click)="play()" [matTooltip]="t('play')" color="primary" mat-raised-button>
+          <mat-icon>play_arrow</mat-icon>
+        </button>
+        <button (click)="pause()" [matTooltip]="t('pause')" color="primary" mat-raised-button>
+          <mat-icon>pause</mat-icon>
+        </button>
+        <button (click)="volUp()" *ngIf="!volumeMobile" [matTooltip]="t('volume_up')" color="primary" mat-raised-button>
+          <mat-icon>add</mat-icon>
+        </button>
+        <button (click)="volDown()" *ngIf="!volumeMobile" [matTooltip]="t('volume_down')" color="primary"
+                mat-raised-button>
+          <mat-icon>remove</mat-icon>
+        </button>
+        <button (click)="saveList()" [matTooltip]="t('save_playlist')" color="primary" mat-raised-button>
+          <mat-icon>save</mat-icon>
+        </button>
+      </div>
+      <div class="progress-mobile">
+        <mat-progress-bar *ngIf="selectedItem" [value]="progress | async" color="primary"
+                          mode="determinate"></mat-progress-bar>
+      </div>
+    </mat-card>
+  </div>
+</ng-container>

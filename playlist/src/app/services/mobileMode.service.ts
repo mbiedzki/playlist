@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { AppRoutingModule } from '../app-routing.module';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Platform } from '@angular/cdk/platform';
@@ -8,14 +8,15 @@ import { Platform } from '@angular/cdk/platform';
   providedIn: 'root',
 })
 export class MobileModeService {
+  resizeSubscription = new Subscription();
 
-  private mobileModeData = new BehaviorSubject<boolean>(false);
+  mobileModeData = new BehaviorSubject<boolean>(false);
   mobileMode = this.mobileModeData.asObservable();
 
-  private volumeMobileData = new BehaviorSubject<boolean>(false);
+  //for mobile devices I don't display volume button in player because phone uses physical buttons, but on desktop in
+  // small screen size I do
+  volumeMobileData = new BehaviorSubject<boolean>(false);
   volumeMobile = this.volumeMobileData.asObservable();
-
-  resizeSubscription: Subscription = new Subscription();
 
   constructor(private rootModule: AppRoutingModule, private breakpointObserver: BreakpointObserver,
               private platformService: Platform) { }
@@ -26,11 +27,9 @@ export class MobileModeService {
   }
 
   public updateVolumeMobile(volumeMobile: boolean) {
-    console.log('volume visible for desktop', !volumeMobile);
     this.volumeMobileData.next(volumeMobile);
   }
 
-  //watch for changes in device and size
   async setMobileModeHandlers() {
     this.resizeSubscription = this.breakpointObserver
       .observe([Breakpoints.Handset, Breakpoints.TabletPortrait])

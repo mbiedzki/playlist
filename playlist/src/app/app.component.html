@@ -1,35 +1,38 @@
 <ng-container *transloco="let t">
+
   <mat-toolbar color="primary">
     <!--  menu for mobile mode-->
     <div *ngIf="mobileMode">
-      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
+      <button [matMenuTriggerFor]="menu" aria-label="Menu" mat-icon-button>
         <mat-icon>menu</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <a routerLink="/" mat-menu-item>
+        <a mat-menu-item routerLink="/">
           <mat-icon>queue_music</mat-icon>
           {{ t('playlist') }}</a>
-        <a routerLink="/search" mat-menu-item>
+        <a mat-menu-item routerLink="/search">
           <mat-icon>search</mat-icon>
           {{ t('search') }}</a>
-        <button *ngIf="!darkMode" mat-menu-item aria-label="Menu" (click)="setLightDarkMode(true)">
+        <!--  dark mode switch-->
+        <button (click)="setLightDarkMode(true)" *ngIf="!darkMode" aria-label="Menu" mat-menu-item>
           <mat-icon>dark_mode</mat-icon>
           {{ t('dark_mode') }}
         </button>
-        <button *ngIf="darkMode" mat-menu-item aria-label="Menu" (click)="setLightDarkMode(false)">
+        <button (click)="setLightDarkMode(false)" *ngIf="darkMode" aria-label="Menu" mat-menu-item>
           <mat-icon>light_mode</mat-icon>
           {{ t('light_mode') }}
         </button>
-        <button mat-menu-item [matMenuTriggerFor]="langmenu" aria-label="Menu">
+        <!--  language -->
+        <button [matMenuTriggerFor]="langmenu" aria-label="Menu" mat-menu-item>
           <mat-icon>language</mat-icon>
           {{ t('language') }}
         </button>
       </mat-menu>
       <mat-menu #langmenu="matMenu">
-        <button mat-menu-item (click)="setLanguage('en')">
+        <button (click)="setLanguage('en')" mat-menu-item>
           <span>English</span>
         </button>
-        <button mat-menu-item (click)="setLanguage('pl')">
+        <button (click)="setLanguage('pl')" mat-menu-item>
           <span>Polski</span>
         </button>
       </mat-menu>
@@ -45,30 +48,28 @@
     <div *ngIf="!mobileMode">
       <!--  dark mode switch-->
       <mat-icon>light_mode</mat-icon>
-      <mat-slide-toggle [formControl]="darkModeToggleControl" color="accent" [title]="t('display')"></mat-slide-toggle>
+      <mat-slide-toggle [formControl]="darkModeToggleControl" [title]="t('display')" color="accent"></mat-slide-toggle>
       <mat-icon>dark_mode</mat-icon>
       <span class="spacer-switch"></span>
-
       <!--  language -->
-      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu" [title]="t('language')">
+      <button [matMenuTriggerFor]="menu" [title]="t('language')" aria-label="Menu" mat-icon-button>
         {{selectedLang}}
         <mat-icon>language</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="setLanguage('en')">
+        <button (click)="setLanguage('en')" mat-menu-item>
           <span>English</span>
         </button>
-        <button mat-menu-item (click)="setLanguage('pl')">
+        <button (click)="setLanguage('pl')" mat-menu-item>
           <span>Polski</span>
         </button>
       </mat-menu>
       <span class="spacer-switch"></span>
     </div>
-
-
   </mat-toolbar>
 
   <app-player></app-player>
 
   <router-outlet></router-outlet>
+
 </ng-container>

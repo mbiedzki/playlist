@@ -1,6 +1,5 @@
 import { Component, ElementRef, HostBinding, Renderer2 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { ListService } from './services/list.service';
 import { DarkModeService } from './services/darkMode.service';
@@ -15,21 +14,20 @@ import { LanguageService } from './services/language.service';
 })
 export class AppComponent {
   title = 'playlist';
-
   @HostBinding('class') className = '';
 
-  darkMode: boolean = false;
-  darkModeSubs: Subscription = new Subscription();
-  darkModeToggleSubs: Subscription = new Subscription();
+  darkMode = false;
+  darkModeSubs = new Subscription();
+  darkModeToggleSubs = new Subscription();
   darkModeToggleControl = new FormControl(false);
 
-  mobileMode: boolean = false;
-  mobileModeSubs: Subscription = new Subscription();
+  mobileMode = false;
+  mobileModeSubs = new Subscription();
 
-  selectedLang: string = 'en';
-  languageModeSubs: Subscription = new Subscription();
+  selectedLang = 'en';
+  languageModeSubs = new Subscription();
 
-  constructor(private dialog: MatDialog, private overlay: OverlayContainer, private elementref: ElementRef,
+  constructor(private overlay: OverlayContainer, private elementRef: ElementRef,
               private renderer: Renderer2, private listService: ListService, private darkModeService: DarkModeService,
               private mobileModeService: MobileModeService, private languageService: LanguageService) { }
 
@@ -67,7 +65,7 @@ export class AppComponent {
 
   initLanguageModeHandlers() {
     this.languageService.initLanguageMode();
-    this.languageModeSubs = this.languageService.languageMode.subscribe((lang => {
+    this.languageModeSubs = this.languageService.langMode.subscribe((lang => {
       this.selectedLang = lang.toUpperCase();
     }));
   }
@@ -86,10 +84,10 @@ export class AppComponent {
     this.className = darkMode ? darkClassName : '';
     if (darkMode) {
       this.overlay.getContainerElement().classList.add(darkClassName);
-      this.renderer.setStyle(this.elementref.nativeElement.ownerDocument.body, 'backgroundColor', 'grey');
+      this.renderer.setStyle(this.elementRef.nativeElement.ownerDocument.body, 'backgroundColor', '#808080');
     } else {
       this.overlay.getContainerElement().classList.remove(darkClassName);
-      this.renderer.setStyle(this.elementref.nativeElement.ownerDocument.body, 'backgroundColor', 'white');
+      this.renderer.setStyle(this.elementRef.nativeElement.ownerDocument.body, 'backgroundColor', '#FFFFFF');
     }
   }
 

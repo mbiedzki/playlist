@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PlayListItem } from '../../common/item/item.component';
+import { PlayListItem } from '../../items/item/item.component';
 import { ListService } from '../../services/list.service';
 import { Subscription } from 'rxjs';
 import { MobileModeService } from '../../services/mobileMode.service';
@@ -12,10 +12,10 @@ import { MobileModeService } from '../../services/mobileMode.service';
 
 export class PlaylistComponent implements OnInit {
   items: Array<PlayListItem> = [];
-  itemsSubs: Subscription = new Subscription();
+  itemsSubs = new Subscription();
 
-  mobileMode: boolean = false;
-  mobileModeSubs: Subscription = new Subscription();
+  mobileMode = false;
+  mobileModeSubs = new Subscription();
 
   constructor(
     private listService: ListService,

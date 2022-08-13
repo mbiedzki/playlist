@@ -32,7 +32,6 @@ export class AppRoutingModule {
   public constructor(private router: Router, private fetchService: ListService) {}
 
   public async updateRoots(mobileMode: boolean) {
-    console.log('update roots for mobile:', mobileMode);
     if (mobileMode) {
       this.router.resetConfig(mobileRoutes);
       await this.router.navigate(['']);

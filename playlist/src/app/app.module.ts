@@ -19,12 +19,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { PlaylistComponent } from './playlist-component/playlist/playlist.component';
 import { SearchComponent } from './search-component/search/search.component';
 import { SearchFieldComponent } from './search-component/search-field/search-field.component';
-import { ItemListComponent } from './common/item-list/item-list.component';
+import { ItemListComponent } from './items/item-list/item-list.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { ItemComponent } from './common/item/item.component';
+import { ItemComponent } from './items/item/item.component';
 import { MoreButtonComponent } from './search-component/more-button/more-button.component';
 import { MatDividerModule } from '@angular/material/divider';
-import { MySnackBarComponent } from './common/my-snack-bar/my-snack-bar.component';
+import { MySnackBarComponent } from './services/my-snack-bar/my-snack-bar.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -34,7 +34,7 @@ import { FlexModule } from '@angular/flex-layout';
 import { MatMenuModule } from '@angular/material/menu';
 import { DesktopViewComponent } from './desktop/desktop-view/desktop-view.component';
 import { CommonModule } from '@angular/common';
-import { PlayerComponent } from './playlist-component/player/player.component';
+import { PlayerComponent } from './player/player/player.component';
 import { TranslocoRootModule } from './transloco-root.module';
 
 @NgModule({
@@ -83,7 +83,7 @@ import { TranslocoRootModule } from './transloco-root.module';
   providers: [
     MySnackBarComponent,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }

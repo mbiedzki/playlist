@@ -7,25 +7,21 @@ import { TranslocoService } from '@ngneat/transloco';
 })
 export class LanguageService {
 
-  private languageModeData = new BehaviorSubject<string>('en');
-  languageMode = this.languageModeData.asObservable();
+  private langModeData = new BehaviorSubject<string>('en');
+  langMode = this.langModeData.asObservable();
 
   constructor(private translocoService: TranslocoService) {}
 
   initLanguageMode() {
-    let storeLangMode: string | null = localStorage.getItem('langMode');
-    if (!storeLangMode) storeLangMode = 'en';
-    this.updateLanguageMode(storeLangMode);
-    console.log('language read:', storeLangMode);
+    this.updateLanguageMode(localStorage.getItem('langMode') || 'en');
   }
 
   updateLanguageMode(lang: string) {
-    this.languageModeData.next(lang);
+    this.langModeData.next(lang);
     this.translocoService.setActiveLang(lang);
   }
 
   saveLanguageMode(lang: string) {
     localStorage.setItem('langMode', lang);
-    console.log('language saved:', lang);
   }
 }
