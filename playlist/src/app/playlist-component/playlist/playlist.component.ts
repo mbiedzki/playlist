@@ -13,7 +13,6 @@ import { MobileModeService } from '../../services/mobileMode.service';
 export class PlaylistComponent implements OnInit {
   items: Array<PlayListItem> = [];
   itemsSubs = new Subscription();
-
   mobileMode = false;
   mobileModeSubs = new Subscription();
 

@@ -8,15 +8,13 @@ import { Platform } from '@angular/cdk/platform';
   providedIn: 'root',
 })
 export class MobileModeService {
-  resizeSubscription = new Subscription();
-
   mobileModeData = new BehaviorSubject<boolean>(false);
   mobileMode = this.mobileModeData.asObservable();
-
   //for mobile devices I don't display volume button in player because phone uses physical buttons, but on desktop in
   // small screen size I do
   volumeMobileData = new BehaviorSubject<boolean>(false);
   volumeMobile = this.volumeMobileData.asObservable();
+  resizeSubscription = new Subscription();
 
   constructor(private rootModule: AppRoutingModule, private breakpointObserver: BreakpointObserver,
               private platformService: Platform) { }
@@ -34,21 +32,12 @@ export class MobileModeService {
     this.resizeSubscription = this.breakpointObserver
       .observe([Breakpoints.Handset, Breakpoints.TabletPortrait])
       .subscribe((state: BreakpointState) => {
-        if (state.matches) {
-          this.updateMobileMode(true);
-        } else {
-          this.updateMobileMode(false);
-        }
+        this.updateMobileMode(state.matches);
       });
-    if (this.platformService.IOS || this.platformService.ANDROID) {
-      this.updateVolumeMobile(true);
-    } else {
-      this.updateVolumeMobile(false);
-    }
+    this.updateVolumeMobile(this.platformService.IOS || this.platformService.ANDROID);
   }
 
   ngOnDestroy() {
     this.resizeSubscription.unsubscribe();
   }
-
 }

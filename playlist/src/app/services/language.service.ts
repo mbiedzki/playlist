@@ -6,7 +6,6 @@ import { TranslocoService } from '@ngneat/transloco';
   providedIn: 'root',
 })
 export class LanguageService {
-
   private langModeData = new BehaviorSubject<string>('en');
   langMode = this.langModeData.asObservable();
 

@@ -15,15 +15,12 @@ import { LanguageService } from './services/language.service';
 export class AppComponent {
   title = 'playlist';
   @HostBinding('class') className = '';
-
   darkMode = false;
   darkModeSubs = new Subscription();
   darkModeToggleSubs = new Subscription();
   darkModeToggleControl = new FormControl(false);
-
   mobileMode = false;
   mobileModeSubs = new Subscription();
-
   selectedLang = 'en';
   languageModeSubs = new Subscription();
 
@@ -58,16 +55,16 @@ export class AppComponent {
     this.darkModeService.saveDarkMode(darkMode);
   }
 
-  setLanguage(lang: string) {
-    this.languageService.updateLanguageMode(lang);
-    this.languageService.saveLanguageMode(lang);
-  }
-
   initLanguageModeHandlers() {
     this.languageService.initLanguageMode();
     this.languageModeSubs = this.languageService.langMode.subscribe((lang => {
       this.selectedLang = lang.toUpperCase();
     }));
+  }
+
+  setLanguage(lang: string) {
+    this.languageService.updateLanguageMode(lang);
+    this.languageService.saveLanguageMode(lang);
   }
 
   async initMobileModeHandlers() {

@@ -15,18 +15,14 @@ import { PlayListItem } from '../../items/item/item.component';
 export class PlayerComponent implements OnInit {
   selectedItem: PlayListItem | undefined;
   itemSubscription = new Subscription();
-
   audio = new Audio();
   duration = 0;
   progress = of(0);
   audioSubscription = new Subscription();
-
   mobileMode = false;
   mobileModeSubs = new Subscription();
-
   volumeMobile = false;
   volumeMobileSubs = new Subscription();
-
   items: Array<PlayListItem> = [];
   itemsSubs = new Subscription();
 

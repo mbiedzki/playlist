@@ -19,7 +19,6 @@ export class SearchComponent {
   trial = 1;
   maxTrials = 10;
   listSubscription = new Subscription();
-
   mobileMode = false;
   mobileModeSubs = new Subscription();
 

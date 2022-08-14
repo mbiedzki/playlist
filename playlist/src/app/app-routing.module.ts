@@ -3,8 +3,6 @@ import { Router, RouterModule, Routes } from '@angular/router';
 import { PlaylistComponent } from './playlist-component/playlist/playlist.component';
 import { SearchComponent } from './search-component/search/search.component';
 import { DesktopViewComponent } from './desktop/desktop-view/desktop-view.component';
-import { ListService } from './services/list.service';
-
 
 const mobileRoutes: Routes = [
   {
@@ -28,16 +26,12 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
+
 export class AppRoutingModule {
-  public constructor(private router: Router, private fetchService: ListService) {}
+  public constructor(private router: Router) {}
 
   public async updateRoots(mobileMode: boolean) {
-    if (mobileMode) {
-      this.router.resetConfig(mobileRoutes);
-      await this.router.navigate(['']);
-    } else {
-      this.router.resetConfig(routes);
-      await this.router.navigate(['']);
-    }
+    this.router.resetConfig(mobileMode ? mobileRoutes : routes);
+    await this.router.navigate(['']);
   }
 }

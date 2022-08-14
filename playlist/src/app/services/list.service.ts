@@ -16,10 +16,8 @@ export class ListService {
     'x-rapidapi-host': 'deezerdevs-deezer.p.rapidapi.com',
     'x-rapidapi-key': API_KEY,
   };
-
   listData = new BehaviorSubject<Array<PlayListItem>>([]);
   list = this.listData.asObservable();
-
   selectedItemData = new BehaviorSubject<PlayListItem | undefined>(undefined);
   selectedItem = this.selectedItemData.asObservable();
 
