@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { AppRoutingModule } from '../app-routing.module';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
@@ -7,7 +7,7 @@ import { Platform } from '@angular/cdk/platform';
 @Injectable({
   providedIn: 'root',
 })
-export class MobileModeService {
+export class MobileModeService implements OnDestroy {
   mobileModeData = new BehaviorSubject<boolean>(false);
   mobileMode = this.mobileModeData.asObservable();
   //for mobile devices I don't display volume button in player because phone uses physical buttons, but on desktop in
