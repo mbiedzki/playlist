@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PlayListItem } from '../../items/item/item.component';
 import { ListService } from '../../services/list.service';
 import { Subscription } from 'rxjs';
@@ -10,7 +10,7 @@ import { MobileModeService } from '../../services/mobileMode.service';
   styleUrls: ['./playlist.component.scss'],
 })
 
-export class PlaylistComponent implements OnInit {
+export class PlaylistComponent implements OnInit, OnDestroy {
   items: Array<PlayListItem> = [];
   itemsSubs = new Subscription();
   mobileMode = false;

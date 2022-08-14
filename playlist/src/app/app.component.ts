@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, Renderer2 } from '@angular/core';
+import { Component, ElementRef, HostBinding, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { ListService } from './services/list.service';
@@ -12,7 +12,7 @@ import { LanguageService } from './services/language.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy{
   title = 'playlist';
   @HostBinding('class') className = '';
   darkMode = false;

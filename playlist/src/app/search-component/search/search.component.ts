@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ListService } from '../../services/list.service';
 import { MySnackBarComponent } from '../../services/my-snack-bar/my-snack-bar.component';
 import { PlayListItem } from '../../items/item/item.component';
@@ -11,7 +11,7 @@ import { MobileModeService } from '../../services/mobileMode.service';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit, OnDestroy{
   items: Array<PlayListItem> = [];
   loading = false;
   index = 0; //page index for deezer API

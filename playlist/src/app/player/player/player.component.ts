@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { ListService } from '../../services/list.service';
 import { of, Subscription } from 'rxjs';
 import { MobileModeService } from '../../services/mobileMode.service';
@@ -12,7 +12,7 @@ import { PlayListItem } from '../../items/item/item.component';
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.scss'],
 })
-export class PlayerComponent implements OnInit {
+export class PlayerComponent implements OnInit, OnDestroy {
   selectedItem: PlayListItem | undefined;
   itemSubscription = new Subscription();
   audio = new Audio();
